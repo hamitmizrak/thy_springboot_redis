@@ -1,3 +1,9 @@
+# Customise untracked
+/node_modules
+/log
+/persist
+
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
