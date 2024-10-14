@@ -1,11 +1,10 @@
 package com.hamitmizrak.thy_springboot_redis.exception;
 
-// Exception Type: 201
-// Exception Status:
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+// Status Code           : 500
+// INTERNAL_SERVER_ERROR : Server Hatası
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class _404_NotFoundException extends RuntimeException {
 

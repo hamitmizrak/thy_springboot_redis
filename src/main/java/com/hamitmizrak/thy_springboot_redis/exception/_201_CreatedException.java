@@ -1,11 +1,10 @@
 package com.hamitmizrak.thy_springboot_redis.exception;
 
-// Exception Type: 201
-// Exception Status:
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+// Status Code : 201
+// CREATED     : Oluşturuldu
 @ResponseStatus(value = HttpStatus.CREATED)
 public class _201_CreatedException extends RuntimeException {
 
