@@ -1,7 +1,7 @@
 # Customise untracked
 /node_modules
 /log
-/persist
+/database_memory_persist
 
 
 HELP.md
