@@ -2,13 +2,19 @@
 [GitHub](https://github.com/hamitmizrak/thy_springboot_redis)
 ---
 
-## Spring Boot Tech
+## Git Init
 ```sh 
+git init
+git add .
+git commit -m "spring boot init"
+git remote add origin URL
+git push -u origin master
 
+git clone https://github.com/hamitmizrak/thy_springboot_redis
 ```
 ---
 
-## Spring Boot
+## Git Codes
 ```sh 
 
 ```
