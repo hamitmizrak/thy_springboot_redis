@@ -2,6 +2,18 @@
 [GitHub](https://github.com/hamitmizrak/thy_springboot_redis)
 ---
 
+
+## Version
+```sh 
+git -v
+mvn -v
+java --version
+javac --version
+docker version
+docker-compose version
+```
+---
+
 ## Git Init
 ```sh 
 git init
@@ -15,16 +27,14 @@ git clone https://github.com/hamitmizrak/thy_springboot_redis
 ---
 
 ## Git Codes
-```sh 
+```sh
+git status
+git logs
 
 ```
 ---
 
-## Spring Boot
-```sh 
 
-```
----
 
 ## Spring Boot
 ```sh 
