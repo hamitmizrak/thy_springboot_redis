@@ -3,6 +3,7 @@ package com.hamitmizrak.thy_springboot_redis.error;
 import java.util.Date;
 import java.util.Map;
 
+// Api Result
 public class ApiResult {
 
     // sem pvc
@@ -23,14 +24,54 @@ public class ApiResult {
         this.path = path;
         this.message = message;
         this.status = status;
-    }
-
-    // Parametreli Constructor (pmes)
-    public ApiResult(String path, String message,String error, Integer status) {
-        this.path = path;
-        this.message = message;
-        this.error = error;
-        this.status = status;
     } //end constructor
 
-} //end ApiResult
+    // GETTER AND SETTER
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Map<String, String> getValidationErrors() {
+        return validationErrors;
+    }
+
+    public void setValidationErrors(Map<String, String> validationErrors) {
+        this.validationErrors = validationErrors;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+} //end class ApiResult
