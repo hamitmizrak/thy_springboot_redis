@@ -1,6 +1,5 @@
 package com.hamitmizrak.thy_springboot_redis.business.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
