@@ -5,6 +5,7 @@ import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
+import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
 import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // LOMBOK
 @RequiredArgsConstructor
@@ -50,32 +52,52 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     @Transactional // Create, Update, Delete
     @Override
     public AddressDto addressServiceCreate(AddressDto addressDto) {
-        return null;
+        AddressEntity addressCreateEntity = dtoToEntity(addressDto);
+        addressCreateEntity = iAddressRepository.save(addressCreateEntity);
+        return entityToDto(addressCreateEntity);
     }
 
     // LIST (Address)
     @Override
     public List<AddressDto> addressServiceList() {
-        return List.of();
+        return iAddressRepository.findAll().stream().map(AddressMapper::AddressEntityToDto).collect(Collectors.toList());
     }
 
     // FIND  (Address)
     @Override
     public AddressDto addressServiceFindById(Long id) {
-        return null;
+        return iAddressRepository.findById(id)
+                .map(AddressMapper::AddressEntityToDto)
+                .orElseThrow(() -> new _404_NotFoundException(id + " nolu Address bulunamadı"));
     }
 
     // UPDATE  (Address)
     @Transactional // Create, Update, Delete
     @Override
     public AddressDto addressServiceUpdateById(Long id, AddressDto addressDto) {
-        return null;
+        // Önce Nesne var mı yokmu
+        AddressEntity addressUpdateEntity =dtoToEntity(addressServiceFindById(id));
+
+        // Bulunan Nesneyi Set
+        addressUpdateEntity.setDoorNumber(addressDto.getDoorNumber());
+        addressUpdateEntity.setStreet(addressDto.getStreet());
+        addressUpdateEntity.setAvenue(addressDto.getAvenue());
+        addressUpdateEntity.setCity(addressDto.getCity());
+        addressUpdateEntity.setZipCode(addressDto.getZipCode());
+        addressUpdateEntity.setState(addressDto.getState());
+        addressUpdateEntity.setDescription(addressDto.getDescription());
+        addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());
+        addressUpdateEntity=iAddressRepository.save(addressUpdateEntity);
+        return entityToDto(addressUpdateEntity);
     }
 
     // DELETE  (Address)
     @Transactional // Create, Update, Delete
     @Override
     public AddressDto addressServiceDeleteById(Long id) {
-        return null;
+        // Önce Nesne var mı yokmu
+        AddressEntity addressDeleteEntity =dtoToEntity(addressServiceFindById(id));
+        iAddressRepository.delete(addressDeleteEntity);
+        return entityToDto(addressDeleteEntity);
     }
 } //end AddressServiceImpl
