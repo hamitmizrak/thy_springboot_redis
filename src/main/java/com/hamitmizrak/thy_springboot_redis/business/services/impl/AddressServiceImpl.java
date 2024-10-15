@@ -7,12 +7,20 @@ import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
 import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 // LOMBOK
@@ -100,4 +108,57 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         iAddressRepository.delete(addressDeleteEntity);
         return entityToDto(addressDeleteEntity);
     }
+
+    ////////////////////////////////////////////////////////////////////
+    // getAllHeaderData
+    @Override
+    public void headerService(Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println("HeaderName: " + key + " HeaderValue: " + value);
+        });
+    }
+
+    //App Information
+    @Override
+    public String appInformationService(HttpServletRequest request, HttpServletResponse response) {
+        String URI = request.getRequestURI();
+        String LOCALHOST = request.getLocalAddr();
+        String SESSION = request.getSession().toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("uri: " + URI).append("<br/>localhost: " + LOCALHOST).append("<br/>session: " + SESSION);
+        String informationToString = stringBuilder.toString();
+        return informationToString;
+    }
+
+    ////////////////////////////////////////////////////////////////////
+    // LIST PAGINATION Entity
+    @Override
+    public Page<AddressEntity> addressServicePagination(int currentPage, int pageSize) {
+        Pageable pageable = PageRequest.of(currentPage, pageSize);
+        Page<AddressEntity> blogRepositoryAll = iAddressRepository.findAll(pageable);
+        return blogRepositoryAll;
+    }
+
+    @Override
+    public Page<AddressDto> addressServicePageable(Pageable pageable, AddressDto addressDto) {
+        List<AddressDto> dtoList = new ArrayList<>();
+
+        return iAddressRepository.findAll(pageable).map(new Function<AddressEntity, AddressDto>() {
+            @Override
+            // Entity Dto Çevirmek  (Model Mapper kulalnabilirsin)
+            public AddressDto apply (AddressEntity registerEntity){
+                AddressDto registerDto = new AddressDto();
+                registerDto.setCity(registerEntity.getCity());
+                registerDto.setStreet(registerEntity.getStreet());
+                registerDto.setDescription(registerEntity.getDescription());
+                registerDto.setId(registerEntity.getId());
+                registerDto.setAvenue(registerEntity.getAvenue());
+                registerDto.setDoorNumber(registerEntity.getDoorNumber());
+                registerDto.setCreatedDate(registerEntity.getCreatedDate());
+                dtoList.add(registerDto);
+                return registerDto;
+            }
+        });
+    }
+
 } //end AddressServiceImpl

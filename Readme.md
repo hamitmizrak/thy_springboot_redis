@@ -32,8 +32,263 @@ git status
 git logs
 
 ```
----
 
+## PostContructor
+`@PostConstruct` anotasyonu, Java'da bir sınıfın yapılandırılması tamamlandıktan hemen sonra çalıştırılması gereken bir metodu işaretlemek için kullanılır. 
+Bu anotasyon, Spring tarafından yönetilen bean'lerde özellikle faydalıdır. `@PostConstruct` anotasyonu, **bağımlılıkların injection** (yerleştirilmesi) işlemi tamamlandıktan sonra, 
+sınıfın başlatma aşamasında belirli bir işlemi gerçekleştirmek için kullanılır.
+
+### Ne Zaman ve Nasıl Kullanılır?
+`@PostConstruct` anotasyonu, bir sınıfın veya bileşenin bağımlılıkları (dependencies) Spring tarafından atandıktan sonra otomatik olarak çalışan bir metodu belirtir. 
+Örneğin, veri hazırlığı, bağlantı oluşturma, bir değişkenin başlatılması gibi işlemler burada yapılabilir. 
+Bu metod, sınıfın constructor'ından **sonra**, ancak herhangi bir metodun çağrılmasından **önce** çalışır.
+
+### Örnek Kodu Açıklaması:
+```java
+private ApiResult apiResult;
+@PostConstruct
+public void springData() {
+    apiResult = new ApiResult();
+}
+```
+
+#### 1. **`@PostConstruct` Anotasyonu:**
+- **Ne yapar?** Bu metodun, sınıfın tüm bağımlılıkları atandıktan sonra çalıştırılmasını sağlar. 
+- Yani, `springData()` metodu, sınıfın diğer bileşenleri veya bağımlılıkları (örneğin, `apiResult` gibi) Spring tarafından hazır hale getirildikten sonra çalıştırılır.
+- **Neden kullanılır?** Eğer belirli bir nesne veya değişken (örneğin `apiResult`) sınıf başlatıldığında otomatik olarak başlatılmak isteniyorsa, 
+- bu anotasyon kullanılır. Böylece her seferinde constructor’da veya manuel olarak başlatmak zorunda kalmazsınız.
+
+#### 2. **`apiResult = new ApiResult();`**
+- **Ne yapar?** `springData()` metodu çalıştığında, `apiResult` nesnesi yeni bir `ApiResult` örneği olarak başlatılır. 
+- Bu sayede sınıfın diğer metotları bu `apiResult` örneğini kullanabilir.
+- **Bağlam:** `apiResult` burada bir sınıf değişkeni (instance variable) olarak tanımlanmıştır. 
+- Eğer bu değişkenin başlatılması gerekiyorsa, `@PostConstruct` anotasyonu ile bağımlılıkların atandıktan hemen sonra bu işlemi gerçekleştirebilirsiniz.
+
+### Özet:
+- **`@PostConstruct`**, Spring tarafından yönetilen bir sınıfın yaşam döngüsünde constructor'dan sonra, 
+- ancak diğer metodların çağrılmasından önce çalıştırılacak bir metodu belirtir.
+- Bu anotasyon ile sınıfın ilk kurulum aşamasında gerekli hazırlıkları yapmak için kullanılabilir, 
+- örneğin: veri başlatma, bağlantı kurma ya da değişkenlere ilk değer atama gibi işlemler.
+
+
+
+---
+## GET attributes
+@GetMapping(
+name = "/addres_list_name",
+value = "/list",
+//path = "/list2"
+params = "active=true",
+consumes = "application/json",
+produces = "application/json",
+headers = "X-API-VERSION=1"
+)
+@Override
+public ResponseEntity<List<AddressDto>> addressApiList() {
+return ResponseEntity.status(HttpStatus.OK).body(iAddressService.addressServiceList());
+}
+
+Bu komutta kullanılan `@GetMapping` anotasyonu, Spring Framework'deki RESTful API geliştirme işlemlerinde kullanılan bir anotasyondur. Bu anotasyon, bir HTTP GET isteğine yanıt veren bir metodun yapılandırılmasını sağlar. Kodda verilen her bir özelliği (attribute) detaylı bir şekilde inceleyip, nasıl çalıştığını ve ne anlama geldiğini açıklayacağım. Ayrıca, her bir özelliğin API'nin nasıl çalışmasını etkilediğini de ayrıntılı olarak açıklayacağım.
+
+### Komut:
+```java
+@GetMapping(
+    name = "/addres_list_name",
+    value = "/list",
+    params = "active=true",
+    consumes = "application/json",
+    produces = "application/json",
+    headers = "X-API-VERSION=1"
+)
+@Override
+public ResponseEntity<List<AddressDto>> addressApiList() {
+    return ResponseEntity.status(HttpStatus.OK).body(iAddressService.addressServiceList());
+}
+```
+
+## Kısaca
+    /*
+    İşte `@GetMapping` anotasyonundaki parametrelerin kısa ve madde madde açıklamaları:
+
+1. **`name`:**
+    - Metoda bir isim verir (genellikle içsel kullanım içindir, dışarıdan görünmez).
+    - Örnek: `name = "/address_list_name"`
+
+2. **`value`:**
+    - GET isteğinin URL yolunu belirtir (endpoint).
+    - Örnek: `value = "/list"`
+
+3. **`path`:**
+    - `value` ile aynı işlevi görür, endpoint yolunu belirtir.
+    - Örnek: `path = "/list2"`
+
+4. **`params`:**
+    - GET isteğinde belirli bir query parametresinin bulunmasını zorunlu kılar.
+    - Örnek: `params = "active=true"`
+
+5. **`consumes`:**
+    - İstek veri formatını (Content-Type) belirtir, sadece bu formatta gelen verileri kabul eder.
+    - Örnek: `consumes = "application/json"`
+
+6. **`produces`:**
+    - Yanıt veri formatını belirtir, API'nin döneceği formatı tanımlar.
+    - Örnek: `produces = "application/json"`
+
+7. **`headers`:**
+    - İstek başlığında (header) belirli bir bilginin bulunmasını zorunlu kılar.
+    - Örnek: `headers = "X-API-VERSION=1"`
+      */
+## name attribute örnek vermek
+"Bu isim, Spring'in dahili mekanizmasında kullanılabilir" ifadesi, Spring'in kendi yapısında bu ismi referans olarak kullanabileceği anlamına gelir. 
+Ancak, bu isim dışarıya görünmez, yani API'yi çağıran istemciler bu ismi görmez veya bilmezler. 
+Bu isim, genellikle Spring'in içsel işlemlerinde, logging (kayıt tutma), izleme veya debugging (hata ayıklama) gibi durumlarda kullanılabilir.
+
+### Örnek:
+Spring uygulamanızda birden fazla endpoint olabilir ve her birine `name` özelliği ile benzersiz isimler verebilirsiniz. Bu isimler, özellikle monitoring (izleme) veya hata ayıklama araçları tarafından kullanılabilir.
+
+#### Kullanım Senaryosu:
+1. **İzleme ve Debugging:** Uygulamanız bir monitoring aracı ile izleniyorsa, belirli bir endpoint'in adı bu araçlarda kolayca görüntülenebilir ve loglarda daha anlaşılır bir bilgi sağlar.
+
+2. **Logging:** Loglarınızda hangi metodun hangi isimle çağrıldığını belirtmek isteyebilirsiniz. Örneğin, hata aldığınızda bu endpoint'e verilen isim loglarda gözükebilir.
+
+### Örnek:
+```java
+@GetMapping(
+    name = "getAddressListEndpoint",
+    value = "/list",
+    produces = "application/json"
+)
+public ResponseEntity<List<AddressDto>> addressApiList() {
+    log.info("Calling the endpoint: getAddressListEndpoint");
+    return ResponseEntity.ok(iAddressService.addressServiceList());
+}
+```
+
+Bu örnekte, `log.info("Calling the endpoint: getAddressListEndpoint");` satırı, bu endpoint'e yapılan çağrıların loglanmasını sağlar. Loglarda bu metodun adı `getAddressListEndpoint` olarak görünür. Bu, metodun ne işe yaradığını anlamayı kolaylaştırır.
+
+### Spring Actuator ile Kullanım:
+Eğer Spring Actuator kullanıyorsanız, uygulamanızın `name` ile tanımlanmış metodlarını izleme veya raporlama araçlarıyla daha anlamlı hale getirebilirsiniz.
+
+```bash
+curl http://localhost:8080/actuator/mappings
+```
+
+Bu komutla, Spring Actuator üzerinde tanımlı tüm endpoint'leri görebilirsiniz ve bu noktada `name` ile verilmiş isimler bu mapping bilgisi içinde görünür.
+
+### `@GetMapping` Anotasyonunun Ayrıntılı Açıklaması:
+Spring Framework'de `@GetMapping` anotasyonu, bir HTTP GET isteğini belirli bir metoda eşlemek için kullanılır. 
+Bu metoda gelen GET isteği, `value` ve diğer koşullara göre doğru URL'ye ve isteklere yönlendirilir.
+
+#### 1. **`name`:**
+```java
+name = "/addres_list_name"
+```
+- **Açıklama:** `name` özelliği, Spring'in dahili kullanımında metodlara bir referans ismi vermek için kullanılır. Normalde bu isim dışarıya yansıtılmaz ve kullanıcının göremeyeceği bir özelliktir.
+- **Anlamı:** Bu metot için bir isim tanımlanmıştır: "/addres_list_name". Bu, proje içinde Spring'in bu metodu izleyebilmesi ve gerektiğinde referans verebilmesi için kullanılabilir.
+- **Kullanımı:** Özellikle büyük projelerde, belirli metodlara referans vermek ve metodların izlenebilirliğini artırmak için faydalıdır. 
+- Ancak genellikle küçük projelerde bu özelliğin kullanımı zorunlu değildir ve isteğe bağlıdır.
+
+#### 2. **`value`:**
+```java
+value = "/list"
+```
+- **Açıklama:** `value` özelliği, GET isteğinin URL yolunu tanımlar. 
+- Bu, istemcinin hangi URL'ye istek yapacağını belirleyen temel yoldur.
+- **Anlamı:** `/list` olarak belirlenen bu URL, istemcinin `http://localhost:4444/api/address/list` adresine GET isteği yaparak bu metoda ulaşmasını sağlar. 
+- Uygulamanın çalıştığı kök URL ve sınıf düzeyinde tanımlanan yol (muhtemelen `/api/address`) bu yolun tam halini belirler.
+- **Kullanımı:** İstemci, bu API'ye erişmek istediğinde `http://localhost:4444/api/address/list` yoluna bir GET isteği yapar. 
+- Bu URL, servise dışarıdan erişim için kapı görevi görür.
+
+#### 3. **`params`:**
+```java
+params = "active=true"
+```
+- **Açıklama:** `params` özelliği, HTTP isteğinin belirli bir query parametresini içermesi gerektiğini belirtir. Burada, URL'de belirli parametreler bulunması zorunlu kılınmıştır.
+- **Anlamı:** API çağrısı yapılırken, URL'de `active=true` query parametresi olmalıdır. Örneğin: `http://localhost:4444/api/address/list?active=true` şeklinde bir GET isteği yapılması gerekir. 
+- Eğer bu parametre belirtilmezse veya değeri farklı olursa, istek bu metoda yönlendirilmez.
+- **Kullanımı:** `params` özelliği ile aynı endpoint'e farklı parametreler göndererek farklı işlemler gerçekleştirebiliriz. 
+- Parametre kontrolü, isteğin doğru metodla eşleşmesini sağlar.
+
+#### 4. **`consumes`:**
+```java
+consumes = "application/json"
+```
+- **Açıklama:** `consumes` özelliği, API'ye gönderilecek olan isteğin veri formatını belirtir. 
+- Yani bu metod, yalnızca belirli bir formatta (bu örnekte `application/json`) gönderilen istekleri kabul eder.
+- **Anlamı:** Bu API, sadece JSON formatındaki verileri kabul eder. 
+- Bu, istemcinin isteği yaparken `Content-Type: application/json` başlığı ile veri göndermesi gerektiği anlamına gelir. 
+- Eğer istek başka bir formatta (örneğin XML) gönderilirse, API bunu işleyemez ve 415 (Unsupported Media Type) hatası döner.
+- **Kullanımı:** `consumes` özelliği, API'nin yalnızca belirli formatta veri almasını sağlamak için kullanılır. 
+- Genellikle JSON (`application/json`), XML (`application/xml`), veya form verisi (`application/x-www-form-urlencoded`) formatlarıyla çalışır.
+
+#### 5. **`produces`:**
+```java
+produces = "application/json"
+```
+- **Açıklama:** `produces` özelliği, bu metodun istemciye hangi formatta yanıt döndüreceğini belirtir. 
+- Bu durumda, API JSON formatında bir yanıt döndürecektir.
+- **Anlamı:** Yanıt, `application/json` formatında dönecektir. İstemci bu endpoint'i çağırırken `Accept: application/json` başlığını ekleyebilir ve yanıtın JSON formatında olduğunu bilmelidir. 
+- Eğer istemci farklı bir format beklerse (örneğin XML), 406 (Not Acceptable) hatası dönebilir.
+- **Kullanımı:** Bu özellik, API'nin belirli bir formatta yanıt döndürmesini zorunlu kılar. 
+- JSON, XML, HTML gibi farklı formatlar arasında seçim yapabilirsiniz.
+
+#### 6. **`headers`:**
+```java
+headers = "X-API-VERSION=1"
+```
+- **Açıklama:** `headers` özelliği, HTTP isteğinde belirli bir başlığın (header) bulunmasını zorunlu kılar. 
+- Bu örnekte, `X-API-VERSION` başlığı kullanılmaktadır.
+- **Anlamı:** Bu API'yi çağırırken HTTP isteğine `X-API-VERSION: 1` başlığı eklenmelidir. 
+- Bu genellikle API versiyonlaması için kullanılır. 
+- İstemci bu başlığı göndermezse ya da farklı bir değer gönderirse, bu metot çalışmaz ve genellikle 400 (Bad Request) veya 404 (Not Found) hatası dönebilir.
+- **Kullanımı:** `headers` özelliği, API versiyonlama, güvenlik veya farklı ihtiyaçlar doğrultusunda isteklere eklenen başlıkları kontrol etmek için kullanılır. 
+- Versiyonlamada API'nin farklı sürümlerini desteklemek için başlıklar sıkça kullanılır.
+
+### Metodun Gövdesi:
+```java
+@Override
+public ResponseEntity<List<AddressDto>> addressApiList() {
+    return ResponseEntity.status(HttpStatus.OK).body(iAddressService.addressServiceList());
+}
+```
+#### 1. **`@Override`:**
+- **Açıklama:** Bu anotasyon, bir metotun üst sınıfta veya bir interface'de tanımlandığını ve burada tekrar tanımlandığını belirtir. Bu, metodun bir interface olan `IAddressApi`'dan alındığını gösterir.
+- **Anlamı:** Bu metot, `IAddressApi` interface’inde tanımlanmış olmalıdır. Bu, Spring'te Interface-Implementation ilişkisini sağlar.
+
+#### 2. **`ResponseEntity`:**
+- **Açıklama:** `ResponseEntity`, HTTP yanıtlarını döndürmek için kullanılan bir sınıftır. 
+- Yanıtın durum kodu ve gövdesi gibi HTTP yanıtı ile ilgili tüm bilgileri içerir.
+- **Anlamı:** Bu metod, HTTP yanıtı olarak bir liste döndürür (`List<AddressDto>`). 
+- Bu liste, Spring'in HTTP yanıtı olarak işleyebileceği şekilde paketlenir. 
+- Ayrıca, yanıt durum kodu olarak `HttpStatus.OK` (200) belirlenmiştir.
+- **Kullanımı:** `ResponseEntity`, API yanıtının durum kodunu (`HttpStatus`), başlıklarını ve gövdesini kontrol etmek için güçlü bir yapı sağlar. 
+- Yanıtın gövdesi burada `iAddressService.addressServiceList()` tarafından sağlanan veri olacaktır.
+
+#### 3. **`iAddressService.addressServiceList()`:**
+- **Açıklama:** Bu, `iAddressService` adında bir servis tarafından sağlanan bir metottur. 
+- `addressServiceList()` metodu, adresleri listeleyen bir servis çağrısıdır.
+- **Anlamı:** Bu servis çağrısı, adresleri (`AddressDto`) içeren bir liste döndürür ve bu liste API'ye yanıt olarak istemciye iletilir.
+- **Kullanımı:** Servis katmanında iş mantığı genellikle burada yapılır. 
+- Bu, veritabanı veya başka bir kaynaktan verilerin alınmasını ve işlenmesini sağlar. Burada işlenen veri, API yanıtı olarak döndürülecektir.
+
+### API’nin Nasıl Çalışacağı:
+Bu metod, `http://localhost:4444/api/address/list` URL'sine yapılan GET isteklerini karşılar. Ancak bu
+
+isteğin çalışabilmesi için birkaç koşul vardır:
+
+1. **URL Parametresi:** İstek, `active=true` query parametresini içermelidir. Örneğin: `http://localhost:4444/api/address/list?active=true`.
+2. **Başlıklar (Headers):** HTTP isteği, `X-API-VERSION: 1` başlığını içermelidir. Bu, API'nin doğru versiyonuna eriştiğinizi garanti eder.
+3. **İçerik Tipi (Content-Type):** İstek verisi JSON formatında olmalıdır, yani `Content-Type: application/json` başlığı ile gönderilmelidir.
+4. **Yanıt Formatı (Produces):** Yanıt JSON formatında döndürülecektir. İstemci, bu yanıtı alacaksa `Accept: application/json` başlığı ile çağrı yapabilir.
+
+### Özet:
+Bu API'nin GET metoduna gelen istek, belirli bir URL, query parametre, başlık ve içerik türü ile sınırlandırılmıştır. 
+Sadece `active=true` parametresi ile, `X-API-VERSION=1` başlığı ile ve `application/json` formatında gelen istekler işlenir. 
+Yanıt olarak JSON formatında bir `AddressDto` listesi döndürülür. 
+Bu yapı, API'nin versiyonlama, veri formatı yönetimi ve parametre kontrolü gibi gelişmiş özelliklerini kullanarak RESTful bir mimari sunar.
+
+## @EnableWebMvc
+---
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
