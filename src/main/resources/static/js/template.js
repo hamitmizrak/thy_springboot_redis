@@ -1,2 +1,2 @@
-alert("Merhabalar");
+//alert("Merhabalar");
 console.log("Javascript")

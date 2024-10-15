@@ -3,3 +3,4 @@ http://localhost:4444/h2-console
 http://localhost:4444/swagger-ui/index.html
 http://localhost:4444/actuator
 http://localhost:4444/actuator/health
+http://localhost:4444/v3/api-docs
