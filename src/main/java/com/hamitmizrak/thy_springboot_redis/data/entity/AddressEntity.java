@@ -1,10 +1,17 @@
 package com.hamitmizrak.thy_springboot_redis.data.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
+// LOMBOK
+@Setter
+@Getter
+
+// ENTITY
 @Entity
 @Table(name="address")
 public class AddressEntity {
