@@ -6,7 +6,7 @@ import java.util.List;
 
 // D: Dto
 // E: Entity
-public interface IAddressService<D, E>  {
+public interface IAddressService<D, E> extends IApplicationInformationService {
 
     // ModelMapper
     public D entityToDto(E e);
@@ -33,12 +33,6 @@ public interface IAddressService<D, E>  {
     /////////////////////////////////////////////////////////////////////
 
     // PAGINATION
-    public Page<E> addressAllServicePagination(int currentPage, int pageSize);
-
-    // Adresi belirli bir sütuna göre sıralama
-    public List<E> addressAllServiceSorted(String sortBy);
-
-    // Varsayılan olarak adresi şehire göre sıralama
-    public List<E> addressAllServiceSortedByCity();
+    public Page<E> addressServicePagination(int currentPage, int pageSize);
 
 } //end IAddressService

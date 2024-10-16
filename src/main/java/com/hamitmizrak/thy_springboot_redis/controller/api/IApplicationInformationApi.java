@@ -9,7 +9,7 @@ import java.util.Map;
 public interface IApplicationInformationApi {
 
     // Header Information
-    public ResponseEntity<?>  headerApi(HttpServletRequest request);
+    public ResponseEntity<?>  headerApi(Map<String,String> headers);
 
     // App Information
     public ResponseEntity<?>  appInformationApi(HttpServletRequest request, HttpServletResponse response);

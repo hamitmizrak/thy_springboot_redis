@@ -2,13 +2,14 @@ package com.hamitmizrak.thy_springboot_redis.business.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+
+import java.util.Map;
 
 public interface IApplicationInformationService {
 
     // Header Information
-    public List<String> headerService(HttpServletRequest request);
+    public void headerService(Map<String,String> headers);
 
     // App Information
-    public List<String> appInformationService(HttpServletRequest request, HttpServletResponse response);
+    public String appInformationService(HttpServletRequest request, HttpServletResponse response);
 }

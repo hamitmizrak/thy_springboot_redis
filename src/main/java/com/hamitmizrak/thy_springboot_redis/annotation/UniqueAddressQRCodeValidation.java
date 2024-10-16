@@ -21,8 +21,8 @@ public class UniqueAddressQRCodeValidation implements ConstraintValidator<Unique
         // AddressEntity isAddressQrCodeEntity=iAddressRepository.findByAddressQrCode(qrCode).orElseThrow(()-> new _404_NotFoundException(qrCode+" bulunmadı"));
 
         // 2.YOL
-        boolean isAddressQrCodeOptional = iAddressRepository.findByAddressDetails_AddressQrCode(qrCode).isPresent();
-        System.out.println(iAddressRepository.findByAddressDetails_AddressQrCode(qrCode).isPresent());
+        boolean isAddressQrCodeOptional = iAddressRepository.findByAddressQrCode(qrCode).isPresent();
+        System.out.println(iAddressRepository.findByAddressQrCode(qrCode).isPresent());
         // Aynı QR Code varsa return false olsun
         if (isAddressQrCodeOptional){
             System.out.println("Aynı isimde QR Code var "+isAddressQrCodeOptional);

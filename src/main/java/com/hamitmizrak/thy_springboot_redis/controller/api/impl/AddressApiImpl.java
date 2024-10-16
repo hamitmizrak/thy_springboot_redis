@@ -141,29 +141,27 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
     @Override
     //@GetMapping("/pagination")
     @GetMapping(value = "/pagination")
-    public ResponseEntity<Page<AddressEntity>> addressAllServicePagination(
+    public ResponseEntity<Page<AddressEntity>> addressServicePagination(
             @RequestParam(name = "currentPage", required = false, defaultValue = "0") int currentPage,
             @RequestParam(name = "pageSize", required = false, defaultValue = "3") int pageSize
     ) {
-        return ResponseEntity.ok(iAddressService.addressAllServicePagination(currentPage, pageSize));
+        return ResponseEntity.ok(iAddressService.addressServicePagination(currentPage, pageSize));
     }
 
-    // Adresi belirli bir sütuna göre sıralama
-    // Embedded dolayı addressDetails.city veya addressDetails.state yazabilirsiniz.
-    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.city
-    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.state"
-    @GetMapping("/sorting")
+    // HEADER
+    // http://localhost:4444/api/header
     @Override
-    public ResponseEntity<List<?>>  addressAllServiceSorted(@RequestParam(name = "sortBy", required = false, defaultValue = "addressDetails.state") String sortBy) {
-        return ResponseEntity.ok(iAddressService.addressAllServiceSorted(sortBy));
+    @GetMapping(value = "/header")
+    public ResponseEntity<?> headerApi(Map<String, String> headers) {
+        iAddressService.headerService(headers);
+        return ResponseEntity.ok("Header Data");
     }
 
-    // Varsayılan olarak adresi şehire göre sıralama
-    // http://localhost:4444/api/address/sortByCity
-    @GetMapping("/sortByCity")
+    // APP INFORMATION
+    // http://localhost:4444/api/information
     @Override
-    public ResponseEntity<List<?>> addressAllServiceSortedByCity() {
-        return ResponseEntity.ok(iAddressService.addressAllServiceSortedByCity());
+    @GetMapping(value = "/information")
+    public ResponseEntity<?> appInformationApi(HttpServletRequest request, HttpServletResponse response) {
+        return ResponseEntity.ok(iAddressService.appInformationService(request, response));
     }
-
 } //end AddressApiImpl
