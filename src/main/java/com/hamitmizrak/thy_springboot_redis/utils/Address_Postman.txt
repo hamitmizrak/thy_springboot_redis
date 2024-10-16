@@ -21,14 +21,15 @@ curl -X 'POST' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
-
-  "doorNumber": "kapı",
-  "street": "sokak",
-  "avenue": "cadde",
-  "city": "şehir",
-  "zipCode": "posta kodu",
-  "state": "ülke",
-  "description": "tanım"
+  "id": 0,
+  "doorNumber": "string",
+  "street": "string",
+  "avenue": "string",
+  "city": "string",
+  "zipCode": "string",
+  "state": "string",
+  "description": "string",
+  "createdDate": "2024-10-16T07:32:21.918Z"
 }'
 
 -------------------------------------------------------
