@@ -2,6 +2,7 @@ package com.hamitmizrak.thy_springboot_redis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 // Mongo aktif etmek ici
 // @EnableMongoRepositories
@@ -21,7 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // @EnableCaching
 
 // Auditing Aktif etmek
-// @EnableJpaAuditing(auditorAwareRef = "auditorAwareBeanMethod")
+ @EnableJpaAuditing(auditorAwareRef = "auditorAwareBeanMethod")
 
 // Spring Security: Şimdilik dahil etme, çünkü Bcrypted kullancağım ancak Spring security için gerekli kütüphaneleri dahil
 // Buradaki exclude ne zaman kapatmam gerekiyor ? cevap: Spring Security ile çalıştığımız zaman kapat
