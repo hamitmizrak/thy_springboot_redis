@@ -1,5 +1,6 @@
 package com.hamitmizrak.thy_springboot_redis.data.entity;
 
+import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +15,15 @@ import java.util.Date;
 // ENTITY
 @Entity
 @Table(name="address")
-public class AddressEntity {
+public class AddressEntity  extends AuditingAwareBaseEntity {
 
     // FIELD
     // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // Embedded
 
     // DOOR NUMBER
     @Column(name = "door_number")
@@ -48,13 +51,14 @@ public class AddressEntity {
 
     // DESCRIPTON
     @Column(name = "description")
+    @Lob
     private String description;
 
     // CREATED DATE
-    @Column(name = "created_Date")
+    @Column(name = "system_created_Date")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    private Date systemCreatedDate;
 
     // RELATION
 
