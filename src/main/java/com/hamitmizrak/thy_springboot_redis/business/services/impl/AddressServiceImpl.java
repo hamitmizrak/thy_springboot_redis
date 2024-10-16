@@ -14,10 +14,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +33,15 @@ import java.util.stream.Collectors;
 
 // Asıl İş Yükünü yapan yer
 @Service
+//@Profile("dev")
+//@Profile("prod")
 public class AddressServiceImpl implements IAddressService<AddressDto, AddressEntity> {
 
     // INJECTION
     private final IAddressRepository iAddressRepository;
     private final ModelMapperBean modelMapperBean;
+
+
 
     @Autowired
     public AddressServiceImpl(IAddressRepository iAddressRepository, ModelMapperBean modelMapperBean) {
