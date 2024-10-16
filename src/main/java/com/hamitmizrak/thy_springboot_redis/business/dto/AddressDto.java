@@ -1,5 +1,6 @@
 package com.hamitmizrak.thy_springboot_redis.business.dto;
 
+import com.hamitmizrak.thy_springboot_redis.annotation.UniqueAddressZipCode;
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseDto;
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
 import jakarta.validation.constraints.NotEmpty;
@@ -46,7 +47,9 @@ public class AddressDto  extends AuditingAwareBaseDto implements Serializable {
     private String city;
 
     // ZIP CODE
-    @NotEmpty(message = "{address.postal_codes.validation.constraints.NotNull.message}")
+    @NotEmpty(message = "{address.zip_code.validation.constraints.NotNull.message}")
+    // Unique
+    @UniqueAddressZipCode
     private String zipCode;
 
     // STATE
