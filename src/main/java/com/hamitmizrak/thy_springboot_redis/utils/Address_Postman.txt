@@ -1,0 +1,107 @@
+ADDRESS
+---------------------
+ CREATE POSTMAN
+ METHOD: POSTMAPPING
+ ENTPOINT: http://localhost:4444/api/address
+ {
+
+   "doorNumber": "kapı",
+   "street": "sokak",
+   "avenue": "cadde",
+   "city": "şehir",
+   "zipCode": "posta kodu",
+   "state": "ülke",
+   "description": "tanım"
+ }
+
+
+
+curl -X 'POST' \
+  'http://localhost:4444/api/address' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+
+  "doorNumber": "kapı",
+  "street": "sokak",
+  "avenue": "cadde",
+  "city": "şehir",
+  "zipCode": "posta kodu",
+  "state": "ülke",
+  "description": "tanım"
+}'
+
+-------------------------------------------------------
+FIND POSTMAN
+METHOD: GETMAPPING
+ENTPOINT: http://localhost:4444/api/address/1
+{
+    "id": 1,
+    "doorNumber": "44",
+    "street": "Kernek",
+    "avenue": "Yeşilyurt",
+    "city": "Malatya",
+    "zipCode": "44044",
+    "state": "Türkiye",
+    "description": "Tanımlama",
+    "createdDate": "2024-10-16T07:05:35.431+00:00"
+}
+
+FIND CURL
+curl -X 'GET' \
+  'http://localhost:4444/api/address/1' \
+  -H 'accept: */*'
+
+-------------------------------------------------------
+ LIST POSTMAN
+ METHOD: GETMAPPING
+ ENTPOINT: http://localhost:4444/api/address
+ CURL:
+ curl -X 'GET' \
+   'http://localhost:4444/api/address' \
+   -H 'accept: */*'
+
+
+
+ -------------------------------------------------------
+  UPDATE
+  POSTMAN
+  METHOD: PUTMAPPING
+  ENTPOINT: http://localhost:4444/api/address/1
+  {
+     "doorNumber": "kapı",
+     "street": "sokak",
+     "avenue": "cadde",
+     "city": "şehir",
+     "zipCode": "posta kodu",
+     "state": "ülke",
+     "description": "tanım",
+     "createdDate": "2024-10-16T07:09:42.164Z"
+   }
+
+
+ curl -X 'PUT' \
+   'http://localhost:4444/api/address/1' \
+   -H 'accept: */*' \
+   -H 'Content-Type: application/json' \
+   -d '{
+   "id": 0,
+   "doorNumber": "kapı",
+   "street": "sokak",
+   "avenue": "cadde",
+   "city": "şehir",
+   "zipCode": "posta kodu",
+   "state": "ülke",
+   "description": "tanım",
+   "createdDate": "2024-10-16T07:09:42.164Z"
+ }'
+
+
+ -------------------------------------------------------
+  DELETE POSTMAN
+  METHOD: DELETEMAPPING
+  ENTPOINT: http://localhost:4444/api/address/1
+
+curl -X 'DELETE' \
+  'http://localhost:4444/api/address/1' \
+  -H 'accept: */*'
