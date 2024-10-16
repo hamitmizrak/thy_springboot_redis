@@ -95,9 +95,10 @@ Bu komutta kullanılan `@GetMapping` anotasyonu, Spring Framework'deki RESTful A
 @GetMapping(
     name = "/addres_list_name",
     value = "/list",
+    path = "/list",
     params = "active=true",
     consumes = "application/json",
-    produces = "application/json",
+    produces = "application/xml",
     headers = "X-API-VERSION=1"
 )
 @Override
@@ -125,6 +126,7 @@ public ResponseEntity<List<AddressDto>> addressApiList() {
 4. **`params`:**
     - GET isteğinde belirli bir query parametresinin bulunmasını zorunlu kılar.
     - Örnek: `params = "active=true"`
+    - EndPoint: http://lcaolhost:4444/list?active=true
 
 5. **`consumes`:**
     - İstek veri formatını (Content-Type) belirtir, sadece bu formatta gelen verileri kabul eder.
@@ -133,6 +135,7 @@ public ResponseEntity<List<AddressDto>> addressApiList() {
 6. **`produces`:**
     - Yanıt veri formatını belirtir, API'nin döneceği formatı tanımlar.
     - Örnek: `produces = "application/json"`
+    - - Örnek: `produces = "application/xml"`
 
 7. **`headers`:**
     - İstek başlığında (header) belirli bir bilginin bulunmasını zorunlu kılar.
