@@ -15,7 +15,7 @@ import java.util.UUID;
 @Log4j2
 
 @Configuration
-public class DataLoading {
+public class DataLoadingAddressCustomer {
 
     // Injection
     private final IAddressService iAddressService;

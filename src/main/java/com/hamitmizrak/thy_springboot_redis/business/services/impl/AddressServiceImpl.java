@@ -3,6 +3,7 @@ package com.hamitmizrak.thy_springboot_redis.business.services.impl;
 import com.hamitmizrak.thy_springboot_redis.bean.ModelMapperBean;
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
@@ -16,11 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -121,14 +122,17 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         AddressEntity addressUpdateEntity = dtoToEntity(addressServiceFindById(id));
 
         // Bulunan Nesneyi Set
-        addressUpdateEntity.setDoorNumber(addressDto.getDoorNumber());
-        addressUpdateEntity.setStreet(addressDto.getStreet());
-        addressUpdateEntity.setAvenue(addressDto.getAvenue());
-        addressUpdateEntity.setCity(addressDto.getCity());
-        addressUpdateEntity.setZipCode(addressDto.getZipCode());
-        addressUpdateEntity.setAddressQrCode(addressDto.getAddressQrCode());
-        addressUpdateEntity.setState(addressDto.getState());
-        addressUpdateEntity.setDescription(addressDto.getDescription());
+        // AddressDetails alanlarını doldur
+        AddressDetails addressDetails = new AddressDetails();
+        addressDetails.setDoorNumber(addressDto.getDoorNumber());
+        addressDetails.setStreet(addressDto.getStreet());
+        addressDetails.setAvenue(addressDto.getAvenue());
+        addressDetails.setCity(addressDto.getCity());
+        addressDetails.setZipCode(addressDto.getZipCode());
+        addressDetails.setAddressQrCode(addressDto.getAddressQrCode());
+        addressDetails.setState(addressDto.getState());
+        addressDetails.setDescription(addressDto.getDescription());
+        // NOT: Tarih ve ID AddressEntity alınır.
         addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());
         addressUpdateEntity = iAddressRepository.save(addressUpdateEntity);
         return entityToDto(addressUpdateEntity);
@@ -149,33 +153,26 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     // import org.springframework.data.domain.Page;
     // import org.springframework.data.domain.Pageable;
     @Override
-    public Page<AddressEntity> addressServicePagination(int currentPage, int pageSize) {
+    public Page<AddressEntity> addressAllServicePagination(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage, pageSize);
         Page<AddressEntity> addressEntityPage = iAddressRepository.findAll(pageable);
         return addressEntityPage;
     }
 
-    // HEADER
+
+    // // Adresi belirli bir sütuna göre sıralama
     @Override
-    public void headerService(Map<String, String> headers) {
-        headers.forEach((key, value) -> {
-            System.out.println("Header Name: " + key + " Header Value: " + value);
-        });
+    public List<AddressEntity> addressAllServiceSorted(String sortBy) {
+        return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, sortBy));
     }
 
-    // APP INFORMATION
+    // Varsayılan olarak adresi şehire göre sıralama
     @Override
-    public String appInformationService(HttpServletRequest request, HttpServletResponse response) {
-        String URI = request.getRequestURI();
-        String LOCALHOST = request.getLocalAddr();
-        String SESSION_ID = request.getSession().getId();
-        // String Builder
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append("URI: ").append(URI).append("\n")
-                .append("LOCALHOST: ").append(LOCALHOST).append("\n")
-                .append("SESSION_ID: ").append(SESSION_ID).append("\n");
-        System.out.println(stringBuilder.toString());
-        return stringBuilder.toString();
+    public List<AddressEntity> addressAllServiceSortedByCity() {
+        // return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        // return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        // NOT: Embedded dolayı `addressDetails.city` kullandım
+        return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, "addressDetails.city"));
     }
+
 } //end AddressServiceImpl

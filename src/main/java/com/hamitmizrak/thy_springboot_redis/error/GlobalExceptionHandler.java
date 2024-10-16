@@ -21,10 +21,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(badRequestException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // badRequestException
+    // Genel Exception
+    /*
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleNullPointerException(Exception exception) {
         return new ResponseEntity<>("Beklenmeyen bir hata: "+exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+ */
 } //end GlobalExceptionHandler

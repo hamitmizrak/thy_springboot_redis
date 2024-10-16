@@ -141,27 +141,29 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
     @Override
     //@GetMapping("/pagination")
     @GetMapping(value = "/pagination")
-    public ResponseEntity<Page<AddressEntity>> addressServicePagination(
+    public ResponseEntity<Page<AddressEntity>> addressAllServicePagination(
             @RequestParam(name = "currentPage", required = false, defaultValue = "0") int currentPage,
             @RequestParam(name = "pageSize", required = false, defaultValue = "3") int pageSize
     ) {
-        return ResponseEntity.ok(iAddressService.addressServicePagination(currentPage, pageSize));
+        return ResponseEntity.ok(iAddressService.addressAllServicePagination(currentPage, pageSize));
     }
 
-    // HEADER
-    // http://localhost:4444/api/header
+    // Adresi belirli bir sütuna göre sıralama
+    // Embedded dolayı addressDetails.city veya addressDetails.state yazabilirsiniz.
+    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.city
+    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.state"
+    @GetMapping("/sorting")
     @Override
-    @GetMapping(value = "/header")
-    public ResponseEntity<?> headerApi(Map<String, String> headers) {
-        iAddressService.headerService(headers);
-        return ResponseEntity.ok("Header Data");
+    public ResponseEntity<List<?>>  addressAllServiceSorted(@RequestParam(name = "sortBy", required = false, defaultValue = "addressDetails.state") String sortBy) {
+        return ResponseEntity.ok(iAddressService.addressAllServiceSorted(sortBy));
     }
 
-    // APP INFORMATION
-    // http://localhost:4444/api/information
+    // Varsayılan olarak adresi şehire göre sıralama
+    // http://localhost:4444/api/address/sortByCity
+    @GetMapping("/sortByCity")
     @Override
-    @GetMapping(value = "/information")
-    public ResponseEntity<?> appInformationApi(HttpServletRequest request, HttpServletResponse response) {
-        return ResponseEntity.ok(iAddressService.appInformationService(request, response));
+    public ResponseEntity<List<?>> addressAllServiceSortedByCity() {
+        return ResponseEntity.ok(iAddressService.addressAllServiceSortedByCity());
     }
+
 } //end AddressApiImpl

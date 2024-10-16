@@ -1,92 +1,48 @@
 package com.hamitmizrak.thy_springboot_redis.error;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.Map;
 
 // LOMBOK
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
 
-// Api Result
+// spring Frameworkta gelen Error'ları kendimize göre yakalamak
+// (Jackson: objeyi json'a çevirir)
+// Eğer sistemde null değer varsa backentte gönderme
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResult {
 
     // sem pvc
-    // Field
-    private Integer status;
-    private String error;
-    private String message;
     private String path;
+    private String message;
+    private String error;
+    private Integer status;
+    private Date createdDate=new Date(System.currentTimeMillis());
     private Map<String,String> validationErrors;
-    private Date createdDate;
 
-    // Parametresiz Constructor
+    // parametresiz constructor
     public ApiResult() {
     }
 
-    // Parametreli Constructor (pms)
+    // parametreli constructor pms
     public ApiResult(String path, String message, Integer status) {
         this.path = path;
         this.message = message;
         this.status = status;
-    } //end constructor
+    }
 
-    // Parametreli Constructor (pmes)
-    public ApiResult(String path, String message,String error, Integer status) {
+    // parametreli constructor pmes
+    public ApiResult(String path, String message, String error, Integer status) {
         this.path = path;
         this.message = message;
         this.error = error;
         this.status = status;
-    } //end constructor
-
-    // GETTER AND SETTER
-    public Integer getStatus() {
-        return status;
     }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public Map<String, String> getValidationErrors() {
-        return validationErrors;
-    }
-
-    public void setValidationErrors(Map<String, String> validationErrors) {
-        this.validationErrors = validationErrors;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-} //end class ApiResult
+} //end class
