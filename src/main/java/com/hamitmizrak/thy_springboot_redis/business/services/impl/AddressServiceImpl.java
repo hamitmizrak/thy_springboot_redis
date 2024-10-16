@@ -8,13 +8,19 @@ import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
 import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 // LOMBOK
@@ -133,5 +139,40 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         AddressEntity addressDeleteEntity = dtoToEntity(addressServiceFindById(id));
         iAddressRepository.delete(addressDeleteEntity);
         return entityToDto(addressDeleteEntity);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // PAGINATION
+    // import org.springframework.data.domain.Page;
+    // import org.springframework.data.domain.Pageable;
+    @Override
+    public Page<AddressEntity> addressServicePagination(int currentPage, int pageSize) {
+        Pageable pageable = PageRequest.of(currentPage, pageSize);
+        Page<AddressEntity> addressEntityPage = iAddressRepository.findAll(pageable);
+        return addressEntityPage;
+    }
+
+    // HEADER
+    @Override
+    public void headerService(Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println("Header Name: " + key + " Header Value: " + value);
+        });
+    }
+
+    // APP INFORMATION
+    @Override
+    public String appInformationService(HttpServletRequest request, HttpServletResponse response) {
+        String URI = request.getRequestURI();
+        String LOCALHOST = request.getLocalAddr();
+        String SESSION_ID = request.getSession().getId();
+        // String Builder
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append("URI: ").append(URI).append("\n")
+                .append("LOCALHOST: ").append(LOCALHOST).append("\n")
+                .append("SESSION_ID: ").append(SESSION_ID).append("\n");
+        System.out.println(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 } //end AddressServiceImpl

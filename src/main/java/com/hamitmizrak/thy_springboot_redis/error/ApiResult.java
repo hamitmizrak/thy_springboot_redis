@@ -1,7 +1,14 @@
 package com.hamitmizrak.thy_springboot_redis.error;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import java.util.Date;
 import java.util.Map;
+
+// LOMBOK
+@AllArgsConstructor
+@Builder
 
 // Api Result
 public class ApiResult {
@@ -23,6 +30,14 @@ public class ApiResult {
     public ApiResult(String path, String message, Integer status) {
         this.path = path;
         this.message = message;
+        this.status = status;
+    } //end constructor
+
+    // Parametreli Constructor (pmes)
+    public ApiResult(String path, String message,String error, Integer status) {
+        this.path = path;
+        this.message = message;
+        this.error = error;
         this.status = status;
     } //end constructor
 

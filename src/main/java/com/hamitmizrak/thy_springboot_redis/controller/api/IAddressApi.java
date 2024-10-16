@@ -1,24 +1,33 @@
 package com.hamitmizrak.thy_springboot_redis.controller.api;
 
+import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 // D: Dto
-public interface IAddressApi <D> {
+public interface IAddressApi <D>  extends IApplicationInformationApi{
 
     // CREATE
-    ResponseEntity<?> addressApiCreate(D d);
+    public ResponseEntity<?> addressApiCreate(D d);
 
     // LIST
-    ResponseEntity<List<D>> addressApiList();
+    public ResponseEntity<List<D>> addressApiList();
 
     // FIND BY ID
-    ResponseEntity<?> addressApiFindById(Long id);
+    public ResponseEntity<?> addressApiFindById(Long id);
 
     // UPDATE
-    ResponseEntity<?> addressApiUpdateFindById(Long id, D d);
+    public ResponseEntity<?> addressApiUpdateFindById(Long id, D d);
 
     // DELETE
-    ResponseEntity<?> addressApiDeleteFindById(Long id);
+    public ResponseEntity<?> addressApiDeleteFindById(Long id);
+
+    // ROOT
+    public ResponseEntity<?> getRoot();
+
+    // PAGINATION
+    public ResponseEntity<Page<AddressEntity>>  addressServicePagination(int currentPage, int pageSize);
+
 } //end IAddressApi

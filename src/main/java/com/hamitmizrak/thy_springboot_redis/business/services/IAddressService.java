@@ -1,10 +1,12 @@
 package com.hamitmizrak.thy_springboot_redis.business.services;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 // D: Dto
 // E: Entity
-public interface IAddressService<D, E> {
+public interface IAddressService<D, E> extends IApplicationInformationService {
 
     // ModelMapper
     public D entityToDto(E e);
@@ -27,5 +29,10 @@ public interface IAddressService<D, E> {
 
     // DELETE
     public D addressServiceDeleteById(Long id);
+
+    /////////////////////////////////////////////////////////////////////
+
+    // PAGINATION
+    public Page<E> addressServicePagination(int currentPage, int pageSize);
 
 } //end IAddressService
