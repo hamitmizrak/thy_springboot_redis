@@ -7,8 +7,10 @@ import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
 import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // LOMBOK
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Log4j2
 
 // Asıl İş Yükünü yapan yer
@@ -26,6 +28,38 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     // INJECTION
     private final IAddressRepository iAddressRepository;
     private final ModelMapperBean modelMapperBean;
+
+    @Autowired
+    public AddressServiceImpl(IAddressRepository iAddressRepository, ModelMapperBean modelMapperBean) {
+        log.error("AddressServiceImpl Constructor çağırdım");
+        System.out.println("AddressServiceImpl Constructor çağırdım");
+        this.iAddressRepository = iAddressRepository;
+        this.modelMapperBean = modelMapperBean;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    // @PostConstruct
+    @PostConstruct
+    public void init() {
+        log.error("AddressServiceImpl @PostConstructor çağırdım");
+        System.out.println("AddressServiceImpl @PostConstructor  çağırdım");
+        log.info("Address Verileri @PostConstructor veri ekleme");
+        // AddressDto
+        AddressDto addressDtoRecursive = null;
+        for (int i = 1; i <= 10; i++) {
+            // AddressDto
+            addressDtoRecursive = new AddressDto();
+            addressDtoRecursive.setDoorNumber("kapı " + i);
+            addressDtoRecursive.setStreet("sokak " + i);
+            addressDtoRecursive.setAvenue("cadde " + i);
+            addressDtoRecursive.setZipCode("posta " + i);
+            addressDtoRecursive.setCity("şehir " + i);
+            addressDtoRecursive.setState("ülke " + i);
+            addressDtoRecursive.setDescription("Tanımlama " + i);
+            AddressEntity addressCreateEntity = dtoToEntity(addressDtoRecursive);
+            addressCreateEntity = iAddressRepository.save(addressCreateEntity);
+        }
+    }
 
     //////////////////////////////////////////////////////////////////////////////////
     // MODEL MAPPER
@@ -76,7 +110,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     @Override
     public AddressDto addressServiceUpdateById(Long id, AddressDto addressDto) {
         // Önce Nesne var mı yokmu
-        AddressEntity addressUpdateEntity =dtoToEntity(addressServiceFindById(id));
+        AddressEntity addressUpdateEntity = dtoToEntity(addressServiceFindById(id));
 
         // Bulunan Nesneyi Set
         addressUpdateEntity.setDoorNumber(addressDto.getDoorNumber());
@@ -87,7 +121,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         addressUpdateEntity.setState(addressDto.getState());
         addressUpdateEntity.setDescription(addressDto.getDescription());
         addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());
-        addressUpdateEntity=iAddressRepository.save(addressUpdateEntity);
+        addressUpdateEntity = iAddressRepository.save(addressUpdateEntity);
         return entityToDto(addressUpdateEntity);
     }
 
@@ -96,7 +130,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     @Override
     public AddressDto addressServiceDeleteById(Long id) {
         // Önce Nesne var mı yokmu
-        AddressEntity addressDeleteEntity =dtoToEntity(addressServiceFindById(id));
+        AddressEntity addressDeleteEntity = dtoToEntity(addressServiceFindById(id));
         iAddressRepository.delete(addressDeleteEntity);
         return entityToDto(addressDeleteEntity);
     }
