@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 // LOMBOK
@@ -59,6 +60,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
             addressDtoRecursive.setStreet("sokak " + i);
             addressDtoRecursive.setAvenue("cadde " + i);
             addressDtoRecursive.setZipCode("posta " + i);
+            addressDtoRecursive.setAddressQrCode(UUID.randomUUID().toString());
             addressDtoRecursive.setCity("şehir " + i);
             addressDtoRecursive.setState("ülke " + i);
             addressDtoRecursive.setDescription("Tanımlama " + i);
@@ -124,6 +126,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         addressUpdateEntity.setAvenue(addressDto.getAvenue());
         addressUpdateEntity.setCity(addressDto.getCity());
         addressUpdateEntity.setZipCode(addressDto.getZipCode());
+        addressUpdateEntity.setAddressQrCode(addressDto.getAddressQrCode());
         addressUpdateEntity.setState(addressDto.getState());
         addressUpdateEntity.setDescription(addressDto.getDescription());
         addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());

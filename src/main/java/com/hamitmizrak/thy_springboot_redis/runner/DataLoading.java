@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
+
 // LOMBOK
 @RequiredArgsConstructor
 @Log4j2
@@ -28,6 +30,7 @@ public class DataLoading {
         addressDto.setStreet("Kernek");
         addressDto.setAvenue("Yeşilyurt");
         addressDto.setZipCode("44044");
+        addressDto.setAddressQrCode(UUID.randomUUID().toString());
         addressDto.setCity("Malatya");
         addressDto.setState("Türkiye");
         addressDto.setDescription("Tanımlama");

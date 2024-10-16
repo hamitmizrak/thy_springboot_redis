@@ -4,9 +4,14 @@ import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IAddressRepository extends JpaRepository<AddressEntity, Long> {
     // Delivered Query
+
+    // QR Koda Göre arama yapsın.
+    Optional<AddressEntity> findByAddressQrCode(String qrCode);
 
     // JPQL
 

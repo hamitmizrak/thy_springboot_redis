@@ -18,6 +18,7 @@ public class AddressMapper {
         addressDto.setAvenue(addressEntity.getAvenue());
         addressDto.setCity(addressEntity.getCity());
         addressDto.setZipCode(addressEntity.getZipCode());
+        addressDto.setAddressQrCode(addressEntity.getAddressQrCode());
         addressDto.setState(addressEntity.getState());
         addressDto.setDescription(addressEntity.getDescription());
         addressDto.setCreatedDate(addressEntity.getCreatedDate());
@@ -36,6 +37,7 @@ public class AddressMapper {
         addressEntity.setAvenue(addressDto.getAvenue());
         addressEntity.setCity(addressDto.getCity());
         addressEntity.setZipCode(addressDto.getZipCode());
+        addressEntity.setAddressQrCode(addressDto.getAddressQrCode());
         addressEntity.setState(addressDto.getState());
         addressEntity.setDescription(addressDto.getDescription());
         addressEntity.setCreatedDate(addressDto.getCreatedDate());

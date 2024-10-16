@@ -1,8 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.business.dto;
 
-import com.hamitmizrak.thy_springboot_redis.annotation.UniqueAddressZipCode;
+import com.hamitmizrak.thy_springboot_redis.annotation.UniqueAddressQRCode;
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseDto;
-import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -48,9 +47,12 @@ public class AddressDto  extends AuditingAwareBaseDto implements Serializable {
 
     // ZIP CODE
     @NotEmpty(message = "{address.zip_code.validation.constraints.NotNull.message}")
-    // Unique
-    @UniqueAddressZipCode
     private String zipCode;
+
+    // Unique
+    @UniqueAddressQRCode
+    @NotEmpty(message = "{address.qr_code.validation.constraints.NotNull.message}")
+    private String addressQrCode;
 
     // STATE
     @NotEmpty(message = "{address.state.validation.constraints.NotNull.message}")

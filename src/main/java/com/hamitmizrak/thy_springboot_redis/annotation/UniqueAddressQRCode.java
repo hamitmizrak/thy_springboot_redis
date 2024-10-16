@@ -7,9 +7,9 @@ import java.lang.annotation.*;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {UniqueAddressZipCodeValidation.class})
-public @interface UniqueAddressZipCode {
-    String message() default "{address.zip_code.unique.validation.constraints.NotNull.message}";
+@Constraint(validatedBy = {UniqueAddressQRCodeValidation.class})
+public @interface UniqueAddressQRCode {
+    String message() default "{address.qr_code.unique.validation.constraints.NotNull.message}";
 
     Class<?>[] groups() default {};
 

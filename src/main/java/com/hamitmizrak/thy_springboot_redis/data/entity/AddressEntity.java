@@ -45,6 +45,10 @@ public class AddressEntity  extends AuditingAwareBaseEntity {
     @Column(name = "zip_code")
     private String zipCode;
 
+    // ZIP CODE
+    @Column(name = "address_qr_code")
+    private String addressQrCode;
+
     // STATE
     @Column(name = "state")
     private String state;
