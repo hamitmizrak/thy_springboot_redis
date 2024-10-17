@@ -21,11 +21,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(badRequestException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // Genel Exception
+    // Genel Exception: Özel yazmadığımız(_400_BadRequestException) bütün Exceptionları yakar
     /*
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleNullPointerException(Exception exception) {
+    public ResponseEntity<String> handleCommonrException(Exception exception) {
         return new ResponseEntity<>("Beklenmeyen bir hata: "+exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
- */
+    */
 } //end GlobalExceptionHandler
