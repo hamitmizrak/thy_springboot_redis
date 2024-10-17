@@ -26,58 +26,50 @@ springboot_profiles_chooise() {
     echo -e "\n###### ${PROFILES} ######  "
 
     # Güncelleme Tercihi
-    echo -e "Profile İçin Seçim Yapınız\n1-)Development\n2-)Production\n3-)Test\n4-)Çıkış "
+    echo -e "Profile İçin Seçim Yapınız\n1-)Profiles Development\n2-)Profiles Production\n3-)dist-upgrade\n4-)Çıkış"
     read chooise
 
     # Girilen sayıya göre tercih
     case $chooise in
         1)
-            read -p "Development Profili için seçmek istiyor musunuz ? e/h " developmentProfilesResult
-            if [[ developmentProfilesResult == "e" || developmentProfilesResult == "E" ]]; then
-                echo -e "Profile Development  Başladı ... "
-
-                 # Geriye Say
-                # sudo ./countdown.sh
-
-                # Profiles Dev
+            read -p "Profiles Development Yükleme mi İstiyor musunuz ? e/h " listUpdatedResult
+            if [[ $listUpdatedResult == "e" || $listUpdatedResult == "E" ]]; then
+                echo -e "Profiles Development"
+                # Geriye Say
+               # Profiles Dev
                 mvn spring-boot:run -Dspring.profiles.active=dev
             else
-                echo -e "Dev Profiles Seçilmedi"
+                echo -e "Profiles Development Güncellenemesi yapılmadı"
             fi
             ;;
         2)
-            read -p "Production Profili için seçmek istiyor musunuz ? e/h " productionProfileResult
-            if [[ $productionProfileResult == "e" || $productionProfileResult == "E" ]]; then
-                echo -e "Profile Production  Başladı  ..."
-
-                # Geriye Say
-                # sudo ./countdown.sh
-
-                 # Profiles Prod
-                mvn spring-boot:run -Dspring.profiles.active=prod
-
+            read -p "Profiles Production Yükseltmek İstiyor musunuz ? e/h " systemListUpdatedResult
+            if [[ $systemListUpdatedResult == "e" || $systemListUpdatedResult == "E" ]]; then
+                echo -e "Profiles Production."
+               # Profiles Prod
+               mvn spring-boot:run -Dspring.profiles.active=prod
             else
-                echo -e "Prod Profiles Seçilmedi... "
+                echo -e "Profiles Production Güncellenmesi  yapılmadı..."
             fi
             ;;
         3)
-            read -p "Test Profili için seçmek istiyor musunuz ?e/h " testProfileResult
-            if [[ $testProfileResult == "e" || $testProfileResult == "E" ]]; then
-                echo -e "Profile Production  Başladı  ... "
-
-                 # Geriye Say
-                # sudo ./countdown.sh
-
-               # Profiles Test
+            read -p "Profiles Test Yüklememi İstiyor musunuz ? e/h " kernelUpdatedResult
+            if [[ $kernelUpdatedResult == "e" || $kernelUpdatedResult == "E" ]]; then
+                echo -e "Test ..."
+                # Profiles Test
                 mvn spring-boot:run -Dspring.profiles.active=test
-
             else
-                echo -e "Kernel Güncellemesi Yapılmadı... "
+                echo -e "Profiles Test Yüklememi Yapılmadı..."
             fi
             ;;
         *)
-            echo -e "Lütfen sadece size belirtilen seçeneği seçiniz"
+            echo -e "Lütfen Sadece Size Belirtilen Seçeneği Seçiniz"
             ;;
     esac
 }
 springboot_profiles_chooise
+
+
+
+
+
