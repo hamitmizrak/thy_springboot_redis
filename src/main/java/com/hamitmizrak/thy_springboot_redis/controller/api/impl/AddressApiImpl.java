@@ -6,8 +6,6 @@ import com.hamitmizrak.thy_springboot_redis.controller.api.IAddressApi;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.error.ApiResult;
 import com.hamitmizrak.thy_springboot_redis.exception._400_BadRequestException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
