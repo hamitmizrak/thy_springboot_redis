@@ -4,6 +4,8 @@ import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
 import com.hamitmizrak.thy_springboot_redis.business.services.ICustomerService;
+import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
+import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
@@ -48,13 +50,15 @@ public class DataLoadingAddressCustomer {
         log.info("Customer Verileri Kaydediliyor");
         System.out.println("Customer Verileri Kaydediliyor");
 
+        // Adres Dto
+        AddressDto addressDto = addressSave();
+
         // CustomerDto
         CustomerDto customerDto = new CustomerDto();
         customerDto.setName("Hamit");
         customerDto.setSurname("Mızrak");
 
         // Composition
-        AddressDto addressDto = addressSave();
         customerDto.setAddressDto(addressDto);
         CustomerDto savedCustomer= (CustomerDto) iCustomerService.customerServiceCreate(customerDto);
         return savedCustomer;

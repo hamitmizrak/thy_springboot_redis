@@ -10,12 +10,12 @@ public class CustomerMapper {
     public static CustomerDto CustomerEntityToDto(CustomerEntity customerEntity) {
         // CustomerDto Instance
         CustomerDto customerDto = new CustomerDto();
-
-        // NOT: Embedded için ID ve DATE dışında bıraktım.
         customerDto.setId(customerEntity.getId());
         customerDto.setName(customerEntity.getName());
         customerDto.setSurname(customerEntity.getSurname());
         customerDto.setCreatedDate(customerEntity.getCreatedDate());
+        // DİKKAT: COMPOSITION
+        customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
         return customerDto;
     } //end CustomerEntityToDto
 
@@ -30,6 +30,8 @@ public class CustomerMapper {
         customerEntity.setName(customerDto.getName());
         customerEntity.setSurname(customerDto.getSurname());
         customerEntity.setCreatedDate(customerDto.getCreatedDate());
+        // DİKKAT: COMPOSITON
+        customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
         return customerEntity;
     } // CustomerDtoToEntity
 
