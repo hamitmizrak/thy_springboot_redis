@@ -1,7 +1,6 @@
 package com.hamitmizrak.thy_springboot_redis.data.entity;
 
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
-import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +14,9 @@ import java.util.Date;
 
 // ENTITY
 @Entity
-@Table(name = "address")
-// Address(1) - Customer(1)
-public class AddressEntity extends AuditingAwareBaseEntity {
+@Table(name = "customer")
+// Customer(1) - Address(1)
+public class CustomerEntity extends AuditingAwareBaseEntity {
 
     // FIELD
     // ID
@@ -25,9 +24,13 @@ public class AddressEntity extends AuditingAwareBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Embedded
-    @Embedded
-    private AddressDetails addressDetails;
+    // DOOR NUMBER
+    @Column(name = "name")
+    private String name;
+
+    // STREET (SOKAK)
+    @Column(name = "surname")
+    private String surname;
 
     // CREATED DATE
     @Column(name = "system_created_Date")
@@ -36,7 +39,8 @@ public class AddressEntity extends AuditingAwareBaseEntity {
     private Date systemCreatedDate;
 
     // RELATION
-    @OneToOne(mappedBy = "addressEntity",fetch = FetchType.LAZY)
-    private CustomerEntity customerEntity;
-
+    // ADDRESS(FK)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    private AddressEntity addressEntity;
 } //end AddressEntity

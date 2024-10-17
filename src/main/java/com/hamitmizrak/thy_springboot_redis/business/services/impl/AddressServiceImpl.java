@@ -67,7 +67,8 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
             addressDtoRecursive.setState("ülke " + i);
             addressDtoRecursive.setDescription("Tanımlama " + i);
             AddressEntity addressCreateEntity = dtoToEntity(addressDtoRecursive);
-            addressCreateEntity = iAddressRepository.save(addressCreateEntity);
+            // ADDRESS KAYDET
+            //addressCreateEntity = iAddressRepository.save(addressCreateEntity);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.hamitmizrak.thy_springboot_redis.runner;
 
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
+import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
+import com.hamitmizrak.thy_springboot_redis.business.services.ICustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
@@ -19,8 +21,10 @@ public class DataLoadingAddressCustomer {
 
     // Injection
     private final IAddressService iAddressService;
+    private final ICustomerService iCustomerService;
 
     // Database Address Ekleme
+    // 1.ADRESS
     private AddressDto addressSave(){
         log.info("Address Verileri Kaydediliyor");
         System.out.println("Address Verileri Kaydediliyor");
@@ -34,8 +38,26 @@ public class DataLoadingAddressCustomer {
         addressDto.setCity("Malatya");
         addressDto.setState("Türkiye");
         addressDto.setDescription("Tanımlama");
-        AddressDto savedAddress= (AddressDto) iAddressService.addressServiceCreate(addressDto);
-        return savedAddress;
+        // NOT: Address için Customerda Composition kullanacağım için pasif yaptım
+        //AddressDto savedAddress= (AddressDto) iAddressService.addressServiceCreate(addressDto);
+        return addressDto;
+    }
+
+    // 1.MÜŞTERİ
+    private CustomerDto customerSave(){
+        log.info("Customer Verileri Kaydediliyor");
+        System.out.println("Customer Verileri Kaydediliyor");
+
+        // CustomerDto
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("Hamit");
+        customerDto.setSurname("Mızrak");
+
+        // Composition
+        AddressDto addressDto = addressSave();
+        customerDto.setAddressDto(addressDto);
+        CustomerDto savedCustomer= (CustomerDto) iCustomerService.customerServiceCreate(customerDto);
+        return savedCustomer;
     }
 
 
@@ -51,7 +73,10 @@ public class DataLoadingAddressCustomer {
         return args -> {
             getData();
             // Adress Kaydet
-            AddressDto addressDto=  addressSave();
+            // AddressDto addressDto=  addressSave();
+
+            // Customer Kaydet
+            CustomerDto customerDto = customerSave();
         };
     } //end getDataSet
 
