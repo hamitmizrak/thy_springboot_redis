@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
-import java.util.List;
 
 // LOMBOK
 @Setter
@@ -15,10 +14,10 @@ import java.util.List;
 
 // ENTITY
 @Entity
-@Table(name = "customer")
-// Customer(1) - Address(1)
-// Customer(1) - Order(N)
-public class CustomerEntity extends AuditingAwareBaseEntity {
+@Table(name = "order")
+// Order(N) - Customer(1)
+// Order(N) - Product(M)
+public class OrderEntity extends AuditingAwareBaseEntity {
 
     // FIELD
     // ID
@@ -31,8 +30,13 @@ public class CustomerEntity extends AuditingAwareBaseEntity {
     private String name;
 
     // STREET (SOKAK)
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "price")
+    private String price;
+
+    // STREET (SOKAK)
+    @Column(name = "code")
+    private String code;
+
 
     // CREATED DATE
     @Column(name = "system_created_Date")
@@ -41,14 +45,12 @@ public class CustomerEntity extends AuditingAwareBaseEntity {
     private Date systemCreatedDate;
 
     // RELATION
-    // Customer(1) - Address(1) ADDRESS(FK)
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
-    private AddressEntity addressEntity;
+    // Order(N) - Customer(1)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    private CustomerEntity customerEntity;
 
     // RELATION
-    // Customer(1) - Order(N)
-    @OneToMany(mappedBy = "customerEntity")
-    private List<OrderEntity> orderEntityList;
+    // Order(N) - Product(M)
 
 } //end AddressEntity
