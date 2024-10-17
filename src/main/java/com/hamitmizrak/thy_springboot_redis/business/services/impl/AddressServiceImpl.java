@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -159,27 +160,29 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         return addressEntityPage;
     }
 
-    // HEADER
+    // SORTING BELLI SUTUNA GORE
     @Override
-    public void headerService(Map<String, String> headers) {
-        headers.forEach((key, value) -> {
-            System.out.println("Header Name: " + key + " Header Value: " + value);
-        });
+    public List<AddressEntity> addressServiceAllSortedBy(String sortedBy) {
+        // NOT: JpaRepository'de findAll Sorting kullanabilirim.
+        return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, sortedBy));
+        //return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, sortedBy));
     }
 
-    // APP INFORMATION
+    // SORTING CITY ASC
+    // NOT: Embeddable Entity verileri aldığımdan dolayı aşağıdaki gibi çağırmak zorundayım
+    /*
+    addressDetails.doorNumber, addressDetails.street, paddressDetails.avenue, addressDetails.city, addressDetails.zipCode
+    addressDetails.addressQrCode, addressDetails.state, addressDetails.description
+     */
     @Override
-    public String appInformationService(HttpServletRequest request, HttpServletResponse response) {
-        String URI = request.getRequestURI();
-        String LOCALHOST = request.getLocalAddr();
-        String SESSION_ID = request.getSession().getId();
-        // String Builder
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append("URI: ").append(URI).append("\n")
-                .append("LOCALHOST: ").append(LOCALHOST).append("\n")
-                .append("SESSION_ID: ").append(SESSION_ID).append("\n");
-        System.out.println(stringBuilder.toString());
-        return stringBuilder.toString();
+    public List<AddressEntity> addressServiceAllSortedByCityAsc() {
+        return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, "addressDetails.city"));
     }
+
+    // SORTING CITY DESC
+    @Override
+    public List<AddressEntity> addressServiceAllSortedByCityDesc() {
+        return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, "addressDetails.city"));
+    }
+
 } //end AddressServiceImpl

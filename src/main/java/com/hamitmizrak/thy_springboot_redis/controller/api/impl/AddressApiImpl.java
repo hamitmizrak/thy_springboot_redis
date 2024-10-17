@@ -75,7 +75,7 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
     // http://localhost:4444/api/address/find/%20  nullpointerexception => BadRequest
     // http://localhost:4444/api/address/find/0    => BadRequest
     // http://localhost:4444/api/address/find/1
-    @GetMapping({"/find/","/find/{id}"})
+    @GetMapping({"/find/", "/find/{id}"})
     @Override
     public ResponseEntity<?> addressApiFindById(@PathVariable(name = "id", required = false) Long id) {
         if (id == null) {
@@ -111,7 +111,7 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
             // String path, String message,String error, Integer status
             apiResult = new ApiResult("http://localhost:4444/api/address/delete/0", "Kötü istek atıldı", "BadRequest", 400);
             return ResponseEntity.badRequest().body(apiResult);
-        } else if (id<0) {
+        } else if (id < 0) {
             log.error("API: 401  UNAUTHROZED");
             apiResult = ApiResult.builder()
                     .path("http://localhost:4444/api/address/delete/-1")
@@ -148,20 +148,40 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
         return ResponseEntity.ok(iAddressService.addressServicePagination(currentPage, pageSize));
     }
 
-    // HEADER
-    // http://localhost:4444/api/header
+    // SORTING BELLI SUTUNA GÖRE
+    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.street
+    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.state
+    // http://localhost:4444/api/address/sorting?sortBy=addressDetails.city
+    // Adres Entityden belirli sutununa göre Sıramalama
+    // NOT: Embeddable Entity verileri aldığımdan dolayı aşağıdaki gibi çağırmak zorundayım
+    /*
+    addressDetails.doorNumber, addressDetails.street, paddressDetails.avenue, addressDetails.city, addressDetails.zipCode
+    addressDetails.addressQrCode, addressDetails.state, addressDetails.description
+     */
     @Override
-    @GetMapping(value = "/header")
-    public ResponseEntity<?> headerApi(Map<String, String> headers) {
-        iAddressService.headerService(headers);
-        return ResponseEntity.ok("Header Data");
+    @GetMapping("/sorting")
+    public ResponseEntity<List<?>> addressApiAllSortedBy(
+            @RequestParam(name = "sortBy", required = false, defaultValue = "addressDetails.state") String sortedBy
+    ) {
+        return ResponseEntity.ok(iAddressService.addressServiceAllSortedBy(sortedBy));
     }
 
-    // APP INFORMATION
-    // http://localhost:4444/api/information
+    // SORTING ASC
+    // http://localhost:4444/api/address/sorting/city/asc
+    // Default Olarak Addres Entityden Şehire göre Küçükten Büyüğe Doğru Sıralama
     @Override
-    @GetMapping(value = "/information")
-    public ResponseEntity<?> appInformationApi(HttpServletRequest request, HttpServletResponse response) {
-        return ResponseEntity.ok(iAddressService.appInformationService(request, response));
+    @GetMapping("/sorting/city/asc")
+    public ResponseEntity<List<?>> addressApiAllSortedByCityAsc() {
+        return ResponseEntity.ok(iAddressService.addressServiceAllSortedByCityAsc());
     }
+
+    // SORTING DESC
+    // http://localhost:4444/api/address/sorting/city/desc
+    // Default Olarak Addres Entityden Şehire göre Büyükten Küçüğe Doğru Sıralama
+    @Override
+    @GetMapping("/sorting/city/desc")
+    public ResponseEntity<List<?>> addressApiAllSortedByCityDesc() {
+        return ResponseEntity.ok(iAddressService.addressServiceAllSortedByCityDesc());
+    }
+
 } //end AddressApiImpl

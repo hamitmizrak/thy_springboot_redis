@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// CrudRepository
+// PagingAndSortingRepository
+// JpaRepository (Tercih edilen çünkü hem CrudRepoistory hemde PagingAndSortingRepository metotları dahildir.)
+
 @Repository
 public interface IAddressRepository extends JpaRepository<AddressEntity, Long> {
     // Delivered Query

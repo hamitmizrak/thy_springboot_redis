@@ -15,8 +15,8 @@ import java.util.Date;
 
 // ENTITY
 @Entity
-@Table(name="address")
-public class AddressEntity  extends AuditingAwareBaseEntity {
+@Table(name = "address")
+public class AddressEntity extends AuditingAwareBaseEntity {
 
     // FIELD
     // ID
@@ -25,8 +25,8 @@ public class AddressEntity  extends AuditingAwareBaseEntity {
     private Long id;
 
     // Embedded
-@Embedded
-private AddressDetails addressDetails;
+    @Embedded
+    private AddressDetails addressDetails;
 
     // CREATED DATE
     @Column(name = "system_created_Date")

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 // D: Dto
-public interface IAddressApi <D>  extends IApplicationInformationApi{
+public interface IAddressApi<D> {
 
     // CREATE
     public ResponseEntity<?> addressApiCreate(D d);
@@ -27,7 +27,20 @@ public interface IAddressApi <D>  extends IApplicationInformationApi{
     // ROOT
     public ResponseEntity<?> getRoot();
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PAGINATION
-    public ResponseEntity<Page<AddressEntity>>  addressServicePagination(int currentPage, int pageSize);
+    public ResponseEntity<Page<AddressEntity>> addressServicePagination(int currentPage, int pageSize);
+
+    // SORTING
+    // Adres Entityden belirli sutununa göre Sıramalama
+    public ResponseEntity<List<?>> addressApiAllSortedBy(String sortedBy);
+
+    // SORTING ASC
+    // Default Olarak Addres Entityden Şehire göre Küçükten Büyüğe Doğru Sıralama
+    public ResponseEntity<List<?>> addressApiAllSortedByCityAsc();
+
+    // SORTING DESC
+    // Default Olarak Addres Entityden Şehire göre Büyükten Küçüğe Doğru Sıralama
+    public ResponseEntity<List<?>> addressApiAllSortedByCityDesc();
 
 } //end IAddressApi

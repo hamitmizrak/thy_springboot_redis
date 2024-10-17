@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
+// Gömülü Sınıf: Entity Classlar'da karmaşıklığı azaltmak için kullanılır
 @Embeddable
 public class AddressDetails {
 
