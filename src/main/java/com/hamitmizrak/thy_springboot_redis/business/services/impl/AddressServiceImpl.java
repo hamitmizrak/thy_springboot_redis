@@ -9,9 +9,11 @@ import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
 import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -100,21 +103,14 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     }
 
     // LIST (Address)
-    // REDIS => import org.springframework.cache.annotation.Cacheable;
-    @Cacheable(value = "addressListCache")  // Tüm adresleri cache'de sakla
     @Override
     public List<AddressDto> addressServiceList() {
-        // Redis için ekledim
         return iAddressRepository.findAll().stream().map(AddressMapper::AddressEntityToDto).collect(Collectors.toList());
     }
 
     // FIND  (Address)
-    // REDIS => import org.springframework.cache.annotation.Cacheable;
-    @Cacheable(value = "addressFindByIdCache", key = "#id")  // Belirli bir adresi cache'de sakla
     @Override
     public AddressDto addressServiceFindById(Long id) {
-        // Redis için ekledim
-        System.out.println("Redis başlamadan önce bunu 1 kere göreceksiniz. " + id);
         return iAddressRepository.findById(id)
                 .map(AddressMapper::AddressEntityToDto)
                 .orElseThrow(() -> new _404_NotFoundException(id + " nolu Address bulunamadı"));
@@ -158,7 +154,6 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     // PAGINATION
     // import org.springframework.data.domain.Page;
     // import org.springframework.data.domain.Pageable;
-    @Cacheable(value = "addressPaginationCache", key = "#currentPage + '-' + #pageSize")  // Sayfalı listeyi cache'le
     @Override
     public Page<AddressEntity> addressServicePagination(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage, pageSize);
@@ -167,7 +162,6 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     }
 
     // SORTING BELLI SUTUNA GORE
-    @Cacheable(value = "addressSortedCache", key = "#sortedBy")  // Sıralanmış listeyi cache'de sakla
     @Override
     public List<AddressEntity> addressServiceAllSortedBy(String sortedBy) {
         // NOT: JpaRepository'de findAll Sorting kullanabilirim.
@@ -181,14 +175,12 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     addressDetails.doorNumber, addressDetails.street, paddressDetails.avenue, addressDetails.city, addressDetails.zipCode
     addressDetails.addressQrCode, addressDetails.state, addressDetails.description
      */
-    @Cacheable(value = "addressSortedByCityAscCache")  // Şehir adına göre sıralanmış ASC listeyi cache'le
     @Override
     public List<AddressEntity> addressServiceAllSortedByCityAsc() {
         return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, "addressDetails.city"));
     }
 
     // SORTING CITY DESC
-    @Cacheable(value = "addressSortedByCityDescCache")  // Şehir adına göre sıralanmış DESC listeyi cache'le
     @Override
     public List<AddressEntity> addressServiceAllSortedByCityDesc() {
         return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, "addressDetails.city"));
