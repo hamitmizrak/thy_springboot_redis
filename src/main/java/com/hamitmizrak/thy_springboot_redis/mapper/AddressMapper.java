@@ -1,6 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.mapper;
 
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 
 // Entity => Dto
@@ -8,20 +9,27 @@ public class AddressMapper {
 
     // Entity => Dto
     public static AddressDto AddressEntityToDto(AddressEntity addressEntity) {
+
         // AddressDto Instance
         AddressDto addressDto = new AddressDto();
 
-        // AddressDto Set
+        // NOT: Embedded için ID ve DATE dışında bıraktım.
         addressDto.setId(addressEntity.getId());
-        addressDto.setDoorNumber(addressEntity.getDoorNumber());
-        addressDto.setStreet(addressEntity.getStreet());
-        addressDto.setAvenue(addressEntity.getAvenue());
-        addressDto.setCity(addressEntity.getCity());
-        addressDto.setZipCode(addressEntity.getZipCode());
-        addressDto.setAddressQrCode(addressEntity.getAddressQrCode());
-        addressDto.setState(addressEntity.getState());
-        addressDto.setDescription(addressEntity.getDescription());
         addressDto.setCreatedDate(addressEntity.getCreatedDate());
+
+        // AddressDto Set
+        if (addressEntity.getAddressDetails() != null) {
+            // Embeddable : AddressDetails
+            AddressDetails addressDetails = addressEntity.getAddressDetails();
+            addressDto.setDoorNumber(addressDetails.getDoorNumber());
+            addressDto.setStreet(addressDetails.getStreet());
+            addressDto.setAvenue(addressDetails.getAvenue());
+            addressDto.setCity(addressDetails.getCity());
+            addressDto.setZipCode(addressDetails.getZipCode());
+            addressDto.setAddressQrCode(addressDetails.getAddressQrCode());
+            addressDto.setState(addressDetails.getState());
+            addressDto.setDescription(addressDetails.getDescription());
+        }
         return addressDto;
     } //end AddressEntityToDto
 
@@ -31,16 +39,24 @@ public class AddressMapper {
         AddressEntity addressEntity = new AddressEntity();
 
         // AddressEntity Set
+        // NOT: Embedded için ID ve DATE dışında bıraktım.
         addressEntity.setId(addressDto.getId());
-        addressEntity.setDoorNumber(addressDto.getDoorNumber());
-        addressEntity.setStreet(addressDto.getStreet());
-        addressEntity.setAvenue(addressDto.getAvenue());
-        addressEntity.setCity(addressDto.getCity());
-        addressEntity.setZipCode(addressDto.getZipCode());
-        addressEntity.setAddressQrCode(addressDto.getAddressQrCode());
-        addressEntity.setState(addressDto.getState());
-        addressEntity.setDescription(addressDto.getDescription());
         addressEntity.setCreatedDate(addressDto.getCreatedDate());
+
+        // Embeddable AddressDetails Instance
+        AddressDetails addressDetails=new AddressDetails();
+        addressDetails.setDoorNumber(addressDto.getDoorNumber());
+        addressDetails.setStreet(addressDto.getStreet());
+        addressDetails.setAvenue(addressDto.getAvenue());
+        addressDetails.setCity(addressDto.getCity());
+        addressDetails.setZipCode(addressDto.getZipCode());
+        addressDetails.setAddressQrCode(addressDto.getAddressQrCode());
+        addressDetails.setState(addressDto.getState());
+        addressDetails.setDescription(addressDto.getDescription());
+
+        // AdressDetails'i AdressEntity Ekle
+        addressEntity.setAddressDetails(addressDetails);
+
         return addressEntity;
     } // AddressDtoToEntity
 

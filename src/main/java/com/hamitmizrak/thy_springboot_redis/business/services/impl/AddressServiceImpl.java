@@ -3,6 +3,7 @@ package com.hamitmizrak.thy_springboot_redis.business.services.impl;
 import com.hamitmizrak.thy_springboot_redis.bean.ModelMapperBean;
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
@@ -121,14 +122,17 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         AddressEntity addressUpdateEntity = dtoToEntity(addressServiceFindById(id));
 
         // Bulunan Nesneyi Set
-        addressUpdateEntity.setDoorNumber(addressDto.getDoorNumber());
-        addressUpdateEntity.setStreet(addressDto.getStreet());
-        addressUpdateEntity.setAvenue(addressDto.getAvenue());
-        addressUpdateEntity.setCity(addressDto.getCity());
-        addressUpdateEntity.setZipCode(addressDto.getZipCode());
-        addressUpdateEntity.setAddressQrCode(addressDto.getAddressQrCode());
-        addressUpdateEntity.setState(addressDto.getState());
-        addressUpdateEntity.setDescription(addressDto.getDescription());
+        // Embeddable eklediğim AddressDetails yapımızı üzerinden Entity set etmeliyim.
+        AddressDetails addressDetails = new AddressDetails();
+        addressDetails.setDoorNumber(addressDto.getDoorNumber());
+        addressDetails.setStreet(addressDto.getStreet());
+        addressDetails.setAvenue(addressDto.getAvenue());
+        addressDetails.setCity(addressDto.getCity());
+        addressDetails.setZipCode(addressDto.getZipCode());
+        addressDetails.setAddressQrCode(addressDto.getAddressQrCode());
+        addressDetails.setState(addressDto.getState());
+        addressDetails.setDescription(addressDto.getDescription());
+        // NOT: Embeddable için ID ve DATE dışınd abıraktım
         addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());
         addressUpdateEntity = iAddressRepository.save(addressUpdateEntity);
         return entityToDto(addressUpdateEntity);

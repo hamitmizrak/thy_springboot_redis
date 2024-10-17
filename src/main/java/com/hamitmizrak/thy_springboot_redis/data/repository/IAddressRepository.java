@@ -11,7 +11,10 @@ public interface IAddressRepository extends JpaRepository<AddressEntity, Long> {
     // Delivered Query
 
     // QR Koda Göre arama yapsın.
-    Optional<AddressEntity> findByAddressQrCode(String qrCode);
+    // NOT: Embeddable yapmadan önceki hali
+    //Optional<AddressEntity> findByAddressQrCode(String qrCode);
+    //Embeddable yapıldıktan sonraki Hali (Embeddable: AddressDetails_)
+    Optional<AddressEntity> findByAddressDetails_AddressQrCode(String qrCode);
 
     // JPQL
 

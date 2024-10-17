@@ -51,7 +51,7 @@ public class AddressDto  extends AuditingAwareBaseDto implements Serializable {
 
     // Unique
     @UniqueAddressQRCode
-    @NotEmpty(message = "{address.qr_code.validation.constraints.NotNull.message}")
+    @NotEmpty(message = "{address.qr_code.unique.validation.constraints.NotNull.message}")
     private String addressQrCode;
 
     // STATE

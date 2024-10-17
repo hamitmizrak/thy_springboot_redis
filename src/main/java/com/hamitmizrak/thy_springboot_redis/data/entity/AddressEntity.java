@@ -1,6 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.data.entity;
 
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,39 +25,8 @@ public class AddressEntity  extends AuditingAwareBaseEntity {
     private Long id;
 
     // Embedded
-
-    // DOOR NUMBER
-    @Column(name = "door_number")
-    private String doorNumber;
-
-    // STREET (SOKAK)
-    @Column(name = "street")
-    private String street;
-
-    // AVENUE (Cadde)
-    @Column(name = "avenue")
-    private String avenue;
-
-    // CITY
-    @Column(name = "city")
-    private String city;
-
-    // ZIP CODE
-    @Column(name = "zip_code")
-    private String zipCode;
-
-    // ZIP CODE
-    @Column(name = "address_qr_code")
-    private String addressQrCode;
-
-    // STATE
-    @Column(name = "state")
-    private String state;
-
-    // DESCRIPTON
-    @Column(name = "description")
-    @Lob
-    private String description;
+@Embedded
+private AddressDetails addressDetails;
 
     // CREATED DATE
     @Column(name = "system_created_Date")
