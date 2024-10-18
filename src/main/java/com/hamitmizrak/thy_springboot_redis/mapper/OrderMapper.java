@@ -59,6 +59,6 @@ public class OrderMapper {
            );
         }
         return orderEntity;
-    } // CustomerDtoToEntity
+    } // OrderDtoToEntity
 
-} //end CustomerMapper
+} //end OrderMapper

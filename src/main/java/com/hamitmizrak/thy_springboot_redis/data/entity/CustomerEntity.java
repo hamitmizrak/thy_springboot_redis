@@ -43,7 +43,7 @@ public class CustomerEntity extends AuditingAwareBaseEntity {
     // RELATION
     // Customer(1) - Address(1) ADDRESS(FK)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id",unique = true)
     private AddressEntity addressEntity;
 
     // RELATION

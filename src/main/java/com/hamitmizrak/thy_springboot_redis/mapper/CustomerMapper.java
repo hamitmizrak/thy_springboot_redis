@@ -10,15 +10,18 @@ public class CustomerMapper {
     public static CustomerDto CustomerEntityToDto(CustomerEntity customerEntity) {
         // CustomerDto Instance
         CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(customerEntity.getId());
+        //customerDto.setId(customerEntity.getId());
         customerDto.setName(customerEntity.getName());
         customerDto.setSurname(customerEntity.getSurname());
         customerDto.setCreatedDate(customerEntity.getCreatedDate());
 
         // DİKKAT: COMPOSITION (Customer(1) Adres(1))
+        /*
         if (customerEntity.getAddressEntity() != null) {
             customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
         }
+        */
+        customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
 
         // DİKKAT: COMPOSITION (Customer(1) Order(N))
 
@@ -33,15 +36,18 @@ public class CustomerMapper {
 
         // AddressEntity Set
         // NOT: Embedded için ID ve DATE dışında bıraktım.
-        customerEntity.setId(customerDto.getId());
+        //customerEntity.setId(customerDto.getId());
         customerEntity.setName(customerDto.getName());
         customerEntity.setSurname(customerDto.getSurname());
         customerEntity.setCreatedDate(customerDto.getCreatedDate());
 
         // DİKKAT: COMPOSITION (Customer(1) Adres(1))
+        /*
         if(customerDto.getAddressDto() != null) {
             customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
         }
+        */
+        customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
 
         // DİKKAT: COMPOSITION (Customer(1) Order(N))
         return customerEntity;
