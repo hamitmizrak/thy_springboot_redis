@@ -3,6 +3,8 @@ package com.hamitmizrak.thy_springboot_redis.mapper;
 import com.hamitmizrak.thy_springboot_redis.business.dto.OrderDto;
 import com.hamitmizrak.thy_springboot_redis.data.entity.OrderEntity;
 
+import java.util.stream.Collectors;
+
 // Entity => Dto
 public class OrderMapper {
 
@@ -16,13 +18,21 @@ public class OrderMapper {
         orderDto.setCode(orderEntity.getCode());
         orderDto.setCreatedDate(orderEntity.getCreatedDate());
 
-        // DİKKAT: COMPOSITION (Order(N) - Customer(1))
+        // DİKKAT: Composition (Order(N) - Customer(1))
         if(orderEntity.getCustomerEntity()!=null){
             orderDto.setCustomerDto(CustomerMapper.CustomerEntityToDto(orderEntity.getCustomerEntity()));
         }
 
-        // DİKKAT: COMPOSITION (Order(N) - Product(M))
-
+        // DİKKAT: Composition (Order(N) - Product(M))
+        if(orderEntity.getProductEntityList()!=null){
+            orderDto.setProductDtoList(
+                    orderEntity
+                            .getProductEntityList()
+                            .stream()
+                            .map(ProductMapper::ProductEntityToDto)
+                             .collect(Collectors.toList())
+            );
+        }
         return orderDto;
     } //end CustomerEntityToDto
 
@@ -34,13 +44,20 @@ public class OrderMapper {
         orderEntity.setName(orderDto.getName());
         orderEntity.setCode(orderDto.getCode());
 
-        // DİKKAT: COMPOSITION (Order(N) - Customer(1))
+        // DİKKAT: Composition (Order(N) - Customer(1))
         if(orderDto.getCustomerDto()!=null){
             orderEntity.setCustomerEntity(CustomerMapper.CustomerDtoToEntity(orderDto.getCustomerDto()));
         }
 
-        // DİKKAT: COMPOSITION (Order(N) - Product(M))
-
+        // DİKKAT: Composition (Order(N) - Product(M))
+        if(orderDto.getProductDtoList()!=null){
+           orderEntity.setProductEntityList(
+                   orderDto.getProductDtoList()
+                           .stream()
+                           .map(ProductMapper::ProductDtoToEntity)
+                           .collect(Collectors.toList())
+           );
+        }
         return orderEntity;
     } // CustomerDtoToEntity
 

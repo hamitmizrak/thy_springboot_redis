@@ -119,13 +119,13 @@ public class OrderServiceImpl implements IOrderService<OrderDto, OrderEntity> {
     // SORTING CITY ASC
     @Override
     public List<OrderEntity> orderServiceAllSortedByCityAsc() {
-        return iOrderRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
+        return iOrderRepository.findAll(Sort.by(Sort.Direction.ASC, "code"));
     }
 
     // SORTING CITY DESC
     @Override
     public List<OrderEntity> orderServiceAllSortedByCityDesc() {
-        return iOrderRepository.findAll(Sort.by(Sort.Direction.DESC, "price"));
+        return iOrderRepository.findAll(Sort.by(Sort.Direction.DESC, "code"));
     }
 
 } //end CustomerServiceImpl

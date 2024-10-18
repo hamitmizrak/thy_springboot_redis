@@ -7,7 +7,6 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 // LOMBOK
 @Getter
@@ -18,8 +17,7 @@ import java.util.List;
 @Builder
 // Validation
 // Order(N)- Customer(1)
-// Order(N)- Product(M)
-public class OrderDto extends AuditingAwareBaseDto implements Serializable {
+public class ProductDto extends AuditingAwareBaseDto implements Serializable {
 
     // SERILESTIRME
     public final static Long serialVersionUID = 1L;
@@ -30,11 +28,11 @@ public class OrderDto extends AuditingAwareBaseDto implements Serializable {
     private Long id;
 
     // NAME
-    @NotEmpty(message = "{order.name.validation.constraints.NotNull.message}")
+    @NotEmpty(message = "{product.name.validation.constraints.NotNull.message}")
     private String name;
 
-    @NotEmpty(message = "{order.code.validation.constraints.NotNull.message}")
-    private String code;
+    @NotEmpty(message = "{product.price.validation.constraints.NotNull.message}")
+    private String price;
 
     // DATE
     @Builder.Default
@@ -44,9 +42,5 @@ public class OrderDto extends AuditingAwareBaseDto implements Serializable {
     // COMPOSITION
     // Order(N)- Customer(1)
     private CustomerDto customerDto;
-
-    // COMPOSITION
-    // Order(N)- Product(M)
-    private List<ProductDto> productDtoList;
 
 } //end AddressDto

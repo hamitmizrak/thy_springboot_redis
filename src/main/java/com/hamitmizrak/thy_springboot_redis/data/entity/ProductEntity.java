@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
 
 // ENTITY
 @Entity
-@Table(name = "orders")
+@Table(name = "products")
 // Order(N) - Customer(1)
 // Order(N) - Product(M)
-public class OrderEntity extends AuditingAwareBaseEntity {
+public class ProductEntity extends AuditingAwareBaseEntity {
 
     // FIELD
     // ID
@@ -30,8 +31,8 @@ public class OrderEntity extends AuditingAwareBaseEntity {
     private String name;
 
     // ORDER (CODE)
-    @Column(name = "code")
-    private String code;
+    @Column(name = "price")
+    private String price;
 
     // CREATED DATE
     @Column(name = "system_created_Date")
@@ -48,12 +49,6 @@ public class OrderEntity extends AuditingAwareBaseEntity {
 
     // RELATION
     // Order(N) - Product(M)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="order_product",
-            joinColumns = @JoinColumn(name="order_id"),
-            inverseJoinColumns = @JoinColumn(name="product_id")
-    )
-    private List<ProductEntity> productEntityList;
-
+    @ManyToMany(mappedBy = "productEntityList",fetch = FetchType.LAZY)
+    private List<OrderEntity> orderEntityList;
 } //end AddressEntity

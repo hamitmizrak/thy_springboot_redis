@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 
 @Component
-public class DataLoadingOrderProduct implements CommandLineRunner {
+public class DataLoading_2_ implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {

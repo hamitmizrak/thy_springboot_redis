@@ -4,8 +4,6 @@ import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
 import com.hamitmizrak.thy_springboot_redis.business.services.ICustomerService;
-import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
-import com.hamitmizrak.thy_springboot_redis.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +17,7 @@ import java.util.UUID;
 @Log4j2
 
 @Configuration
-public class DataLoadingAddressCustomer {
+public class DataLoading_1_ {
 
     // Injection
     private final IAddressService iAddressService;

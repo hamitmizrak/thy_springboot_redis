@@ -15,7 +15,7 @@ import java.util.List;
 
 // ENTITY
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 // Customer(1) - Address(1)
 // Customer(1) - Order(N)
 public class CustomerEntity extends AuditingAwareBaseEntity {
