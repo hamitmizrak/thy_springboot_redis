@@ -68,7 +68,7 @@ public class DataLoading_1_ {
         // Composition
         customerDto.setAddressDto(addressDto);
         // NOT: Customer İçin Order'daki Composition kullanacağım için pasif yaptım
-        //CustomerDto savedCustomer= (CustomerDto) iCustomerService.customerServiceCreate(customerDto);
+        // CustomerDto savedCustomer= (CustomerDto) iCustomerService.customerServiceCreate(customerDto);
         return customerDto;
     }
 
@@ -94,7 +94,6 @@ public class DataLoading_1_ {
         // Diziye Ekle
         productDtoArray[0]=productDto1;
         productDtoArray[1]=productDto2;
-
         return productDtoArray;
     }
 
@@ -108,15 +107,16 @@ public class DataLoading_1_ {
         OrderDto orderDto = new OrderDto();
         orderDto.setName("Kahvaltı");
         orderDto.setCode("code-1");
+
         // Composition (Müşteri Ekle ve zaten Müşteride Adress vardı)
+        // Customer, Adres'i Composition ekliyor
+        // Order, Customer'ı Composition olarak ekliyor.
         orderDto.setCustomerDto(customerSave());
         orderDto.setProductDtoList(Arrays.asList(productSave()[0],productSave()[1]));
-        System.out.println(orderDto);
 
         // Database Kaydetmek
         OrderDto orderDtoSaved = (OrderDto) iOrderService.orderServiceCreate(orderDto);
         System.out.println(orderDtoSaved);
-
         return orderDto;
     }
 
@@ -139,7 +139,8 @@ public class DataLoading_1_ {
              //CustomerDto customerDto = customerSave();
 
             // Order Kaydet
-            orderSave();
+            OrderDto orderProductCustomerAddressSaved= orderSave();
+            System.out.println(orderProductCustomerAddressSaved);
         };
     } //end getDataSet
 

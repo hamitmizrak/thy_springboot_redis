@@ -14,8 +14,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Log4j2
 @Builder
+@Log4j2
+
 // Validation
 // Order(N)- Customer(1)
 // Order(N)- Product(M)
@@ -25,7 +26,6 @@ public class OrderDto extends AuditingAwareBaseDto implements Serializable {
     public final static Long serialVersionUID = 1L;
 
     // FIELD
-
     // ID
     private Long id;
 

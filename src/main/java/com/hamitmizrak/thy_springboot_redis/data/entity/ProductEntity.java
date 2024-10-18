@@ -14,8 +14,8 @@ import java.util.List;
 @Getter
 
 // ENTITY
-@Entity
-@Table(name = "products")
+@Entity(name="ProductEntity") // name: JPQL sorgularında kullanılacak varlık adını özelleştirmek için kullanılır.
+@Table(name = "products") // name: database tablo adı
 // Order(N) - Customer(1)
 // Order(N) - Product(M)
 public class ProductEntity extends AuditingAwareBaseEntity {
@@ -41,14 +41,9 @@ public class ProductEntity extends AuditingAwareBaseEntity {
     private Date systemCreatedDate;
 
     ////////////////////////////////////////////////////////////////////////////////////////////
-    // RELATION
-    // Order(N) - Customer(1)
-    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private CustomerEntity customerEntity;
 
     // RELATION
     // Order(N) - Product(M)
-    @ManyToMany(mappedBy = "productEntityList",fetch = FetchType.LAZY)
-    private List<OrderEntity> orderEntityList;
+    @ManyToMany(mappedBy = "productOrderEntityList",fetch = FetchType.LAZY)
+    private List<OrderEntity> orderProductEntityList;
 } //end AddressEntity

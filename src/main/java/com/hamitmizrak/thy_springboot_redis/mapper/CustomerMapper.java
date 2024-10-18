@@ -3,6 +3,8 @@ package com.hamitmizrak.thy_springboot_redis.mapper;
 import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.data.entity.CustomerEntity;
 
+import java.util.stream.Collectors;
+
 // Entity => Dto
 public class CustomerMapper {
 
@@ -10,20 +12,30 @@ public class CustomerMapper {
     public static CustomerDto CustomerEntityToDto(CustomerEntity customerEntity) {
         // CustomerDto Instance
         CustomerDto customerDto = new CustomerDto();
-        //customerDto.setId(customerEntity.getId());
+        customerDto.setId(customerEntity.getId());
         customerDto.setName(customerEntity.getName());
         customerDto.setSurname(customerEntity.getSurname());
         customerDto.setCreatedDate(customerEntity.getCreatedDate());
 
-        // DİKKAT: COMPOSITION (Customer(1) Adres(1))
-        /*
-        if (customerEntity.getAddressEntity() != null) {
-            customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
+        // DİKKAT: Composition (Customer(1) Adres(1))
+        if (customerEntity.getAddressCustomerEntity() != null) {
+            customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressCustomerEntity()));
+        } else {
+            System.out.println("Customer(1) Adres(1) Customer Composition Adress null");
         }
-        */
-        customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
 
-        // DİKKAT: COMPOSITION (Customer(1) Order(N))
+        // DİKKAT: Composition (Customer(1) Order(N))
+        if(customerEntity.getOrderCustomerEntityList()!=null){
+            customerDto.setOrderDtoList(
+                    customerEntity
+                            .getOrderCustomerEntityList()
+                            .stream()
+                            .map(OrderMapper::OrderEntityToDto)
+                            .collect(Collectors.toList())
+            );
+        }else{
+            System.out.println("(Customer(1) Order(N) Customer Composition Order null");
+        }
 
         return customerDto;
     } //end CustomerEntityToDto
@@ -36,20 +48,27 @@ public class CustomerMapper {
 
         // AddressEntity Set
         // NOT: Embedded için ID ve DATE dışında bıraktım.
-        //customerEntity.setId(customerDto.getId());
+        customerEntity.setId(customerDto.getId());
         customerEntity.setName(customerDto.getName());
         customerEntity.setSurname(customerDto.getSurname());
         customerEntity.setCreatedDate(customerDto.getCreatedDate());
 
-        // DİKKAT: COMPOSITION (Customer(1) Adres(1))
-        /*
+        // DİKKAT: Composition (Customer(1) Adres(1))
         if(customerDto.getAddressDto() != null) {
-            customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
+            customerEntity.setAddressCustomerEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
         }
-        */
-        customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
 
-        // DİKKAT: COMPOSITION (Customer(1) Order(N))
+        // DİKKAT: Composition (Customer(1) Order(N))
+        if(customerDto.getOrderDtoList()!=null){
+            customerEntity.setOrderCustomerEntityList(
+                    customerDto
+                            .getOrderDtoList()
+                            .stream()
+                            .map(OrderMapper::OrderDtoToEntity)
+                            .collect(Collectors.toList()));
+        }else{
+            System.out.println("(Customer(1) Order(N) Customer Composition Order null");
+        }
         return customerEntity;
     } // CustomerDtoToEntity
 

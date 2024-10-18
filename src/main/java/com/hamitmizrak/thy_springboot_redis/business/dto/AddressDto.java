@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,8 +16,9 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Log4j2
 @Builder
+@Log4j2
+
 // Validation
 // Address(1) - Customer(1)
 public class AddressDto  extends AuditingAwareBaseDto implements Serializable {

@@ -13,8 +13,9 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Log4j2
 @Builder
+@Log4j2
+
 // Validation
 // Order(N)- Customer(1)
 public class ProductDto extends AuditingAwareBaseDto implements Serializable {
@@ -37,10 +38,5 @@ public class ProductDto extends AuditingAwareBaseDto implements Serializable {
     // DATE
     @Builder.Default
     private Date systemCreatedDate = new Date(System.currentTimeMillis());
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    // COMPOSITION
-    // Order(N)- Customer(1)
-    private CustomerDto customerDto;
 
 } //end AddressDto

@@ -14,8 +14,8 @@ import java.util.Date;
 @Getter
 
 // ENTITY
-@Entity
-@Table(name = "address")
+@Entity(name = "AddressEntity") // name: JPQL sorgularında kullanılacak varlık adını özelleştirmek için kullanılır.
+@Table(name = "addresses") // name: database tablo adı
 // Address(1) - Customer(1)
 public class AddressEntity extends AuditingAwareBaseEntity {
 
@@ -36,7 +36,7 @@ public class AddressEntity extends AuditingAwareBaseEntity {
     private Date systemCreatedDate;
 
     // RELATION
-    @OneToOne(mappedBy = "addressEntity",fetch = FetchType.LAZY)
-    private CustomerEntity customerEntity;
+    @OneToOne(mappedBy = "addressCustomerEntity",fetch = FetchType.LAZY)
+    private CustomerEntity customerAddressEntity;
 
 } //end AddressEntity

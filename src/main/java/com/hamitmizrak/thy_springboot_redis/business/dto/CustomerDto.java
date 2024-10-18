@@ -14,8 +14,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Log4j2
 @Builder
+@Log4j2
+
 // Validation
 // Customer(1)- Address(1)
 // Customer(1)- Order(N)

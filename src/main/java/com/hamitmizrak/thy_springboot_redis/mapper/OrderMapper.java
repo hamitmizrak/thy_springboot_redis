@@ -19,15 +19,15 @@ public class OrderMapper {
         orderDto.setCreatedDate(orderEntity.getCreatedDate());
 
         // DİKKAT: Composition (Order(N) - Customer(1))
-        if(orderEntity.getCustomerEntity()!=null){
-            orderDto.setCustomerDto(CustomerMapper.CustomerEntityToDto(orderEntity.getCustomerEntity()));
+        if(orderEntity.getCustomerOrderEntity()!=null){
+            orderDto.setCustomerDto(CustomerMapper.CustomerEntityToDto(orderEntity.getCustomerOrderEntity()));
         }
 
         // DİKKAT: Composition (Order(N) - Product(M))
-        if(orderEntity.getProductEntityList()!=null){
+        if(orderEntity.getProductOrderEntityList()!=null){
             orderDto.setProductDtoList(
                     orderEntity
-                            .getProductEntityList()
+                            .getProductOrderEntityList()
                             .stream()
                             .map(ProductMapper::ProductEntityToDto)
                              .collect(Collectors.toList())
@@ -46,12 +46,12 @@ public class OrderMapper {
 
         // DİKKAT: Composition (Order(N) - Customer(1))
         if(orderDto.getCustomerDto()!=null){
-            orderEntity.setCustomerEntity(CustomerMapper.CustomerDtoToEntity(orderDto.getCustomerDto()));
+            orderEntity.setCustomerOrderEntity(CustomerMapper.CustomerDtoToEntity(orderDto.getCustomerDto()));
         }
 
         // DİKKAT: Composition (Order(N) - Product(M))
         if(orderDto.getProductDtoList()!=null){
-           orderEntity.setProductEntityList(
+           orderEntity.setProductOrderEntityList(
                    orderDto.getProductDtoList()
                            .stream()
                            .map(ProductMapper::ProductDtoToEntity)

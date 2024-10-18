@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +13,8 @@ import java.util.List;
 @Getter
 
 // ENTITY
-@Entity
-@Table(name = "customers")
+@Entity(name = "CustomerEntity") // name: JPQL sorgularında kullanılacak varlık adını özelleştirmek için kullanılır.
+@Table(name = "customers") // name: database tablo adı
 // Customer(1) - Address(1)
 // Customer(1) - Order(N)
 public class CustomerEntity extends AuditingAwareBaseEntity {
@@ -44,11 +43,11 @@ public class CustomerEntity extends AuditingAwareBaseEntity {
     // Customer(1) - Address(1) ADDRESS(FK)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id",unique = true)
-    private AddressEntity addressEntity;
+    private AddressEntity addressCustomerEntity;
 
     // RELATION
     // Customer(1) - Order(N)
-    @OneToMany(mappedBy = "customerEntity")
-    private List<OrderEntity> orderEntityList;
+    @OneToMany(mappedBy = "customerOrderEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<OrderEntity> orderCustomerEntityList;
 
 } //end AddressEntity

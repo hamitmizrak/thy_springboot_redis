@@ -13,8 +13,8 @@ import java.util.List;
 @Getter
 
 // ENTITY
-@Entity
-@Table(name = "orders")
+@Entity(name="OrderEntity") // name: JPQL sorgularında kullanılacak varlık adını özelleştirmek için kullanılır.
+@Table(name = "orders") // name: database tablo adı
 // Order(N) - Customer(1)
 // Order(N) - Product(M)
 public class OrderEntity extends AuditingAwareBaseEntity {
@@ -44,7 +44,7 @@ public class OrderEntity extends AuditingAwareBaseEntity {
     // Order(N) - Customer(1)
     @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private CustomerEntity customerEntity;
+    private CustomerEntity customerOrderEntity;
 
     // RELATION
     // Order(N) - Product(M)
@@ -54,6 +54,6 @@ public class OrderEntity extends AuditingAwareBaseEntity {
             joinColumns = @JoinColumn(name="order_id"),
             inverseJoinColumns = @JoinColumn(name="product_id")
     )
-    private List<ProductEntity> productEntityList;
+    private List<ProductEntity> productOrderEntityList;
 
 } //end AddressEntity
