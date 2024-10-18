@@ -26,14 +26,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 // Spring Security: Şimdilik dahil etme, çünkü Bcrypted kullancağım ancak Spring security için gerekli kütüphaneleri dahil
 // Buradaki exclude ne zaman kapatmam gerekiyor ? cevap: Spring Security ile çalıştığımız zaman kapat
+ /*
 @SpringBootApplication(exclude = {
         //SecurityAutoConfiguration.class,
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
         org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration.class
   }
 )
-
-//@SpringBootApplication
+*/
+@SpringBootApplication
 public class ThySpringbootRedisApplication {
 	 /*
 		 @PostConstruct
@@ -46,7 +47,7 @@ public class ThySpringbootRedisApplication {
 	public static void main(String[] args) {
 
 		// devtools active isActive
-		// System.setProperty("spring.devtools.restart.enabled","true");
+		System.setProperty("spring.devtools.restart.enabled","true");
 
 		// PORT Ayarlamak
         /*
