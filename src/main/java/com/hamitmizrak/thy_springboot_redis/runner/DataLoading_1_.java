@@ -136,7 +136,7 @@ public class DataLoading_1_ {
             // AddressDto addressDto=  addressSave();
 
             // Customer Kaydet
-            // CustomerDto customerDto = customerSave();
+             //CustomerDto customerDto = customerSave();
 
             // Order Kaydet
             orderSave();
