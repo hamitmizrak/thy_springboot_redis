@@ -1,9 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.business.dto;
 
-import com.hamitmizrak.thy_springboot_redis.annotation.UniqueAddressQRCode;
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseDto;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
@@ -20,6 +18,7 @@ import java.util.List;
 @Builder
 // Validation
 // Customer(1)- Address(1)
+// Customer(1)- Order(N)
 public class CustomerDto extends AuditingAwareBaseDto implements Serializable {
 
     // SERILESTIRME
@@ -35,19 +34,19 @@ public class CustomerDto extends AuditingAwareBaseDto implements Serializable {
     private String name;
 
     // SURNAME
-    @NotEmpty(message = "customer.surname.validation.constraints.NotNull.message")
+    @NotEmpty(message = "{customer.surname.validation.constraints.NotNull.message}")
     private String surname;
 
     // DATE
     @Builder.Default
-    private Date systemCreatedDate=new Date(System.currentTimeMillis());
+    private Date systemCreatedDate = new Date(System.currentTimeMillis());
 
     // COMPOSITION
-    // ADDRESS
+    // Customer(1)- Address(1)
     private AddressDto addressDto;
 
     // COMPOSITION
-    // ORDER
+    // Customer(1)- Order(N)
     private List<OrderDto> orderDtoList;
 
 } //end AddressDto

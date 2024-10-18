@@ -1,8 +1,6 @@
 package com.hamitmizrak.thy_springboot_redis.mapper;
 
-import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.business.dto.OrderDto;
-import com.hamitmizrak.thy_springboot_redis.data.entity.CustomerEntity;
 import com.hamitmizrak.thy_springboot_redis.data.entity.OrderEntity;
 
 // Entity => Dto
@@ -10,7 +8,8 @@ public class OrderMapper {
 
     // Entity => Dto
     public static OrderDto OrderEntityToDto(OrderEntity orderEntity) {
-        // CustomerDto Instance
+
+        // OrderDto Instance
         OrderDto orderDto = new OrderDto();
         orderDto.setId(orderEntity.getId());
         orderDto.setName(orderEntity.getName());
@@ -18,12 +17,13 @@ public class OrderMapper {
         orderDto.setCode(orderEntity.getCode());
         orderDto.setCreatedDate(orderEntity.getCreatedDate());
 
-        // DİKKAT: COMPOSITION (ORDER - CUSTOMER)
+        // DİKKAT: COMPOSITION (Order(N) - Customer(1))
         if(orderEntity.getCustomerEntity()!=null){
             orderDto.setCustomerDto(CustomerMapper.CustomerEntityToDto(orderEntity.getCustomerEntity()));
         }
 
-        // DİKKAT: COMPOSITION (ORDER - PRODUCT)
+        // DİKKAT: COMPOSITION (Order(N) - Product(M))
+
         return orderDto;
     } //end CustomerEntityToDto
 
@@ -36,12 +36,13 @@ public class OrderMapper {
         orderEntity.setPrice(orderDto.getPrice());
         orderEntity.setCode(orderDto.getCode());
 
-        // DİKKAT: COMPOSITION (ORDER - CUSTOMER)
+        // DİKKAT: COMPOSITION (Order(N) - Customer(1))
         if(orderDto.getCustomerDto()!=null){
             orderEntity.setCustomerEntity(CustomerMapper.CustomerDtoToEntity(orderDto.getCustomerDto()));
         }
 
-        // DİKKAT: COMPOSITION (ORDER - PRODUCT)
+        // DİKKAT: COMPOSITION (Order(N) - Product(M))
+
         return orderEntity;
     } // CustomerDtoToEntity
 

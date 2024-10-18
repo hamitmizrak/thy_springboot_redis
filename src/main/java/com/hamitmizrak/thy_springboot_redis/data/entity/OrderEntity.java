@@ -25,15 +25,15 @@ public class OrderEntity extends AuditingAwareBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // DOOR NUMBER
+    // ORDER NAME
     @Column(name = "name")
     private String name;
 
-    // STREET (SOKAK)
+    // ORDER (PRICE)
     @Column(name = "price")
     private String price;
 
-    // STREET (SOKAK)
+    // ORDER (CODE)
     @Column(name = "code")
     private String code;
 
@@ -46,8 +46,8 @@ public class OrderEntity extends AuditingAwareBaseEntity {
 
     // RELATION
     // Order(N) - Customer(1)
-    @ManyToOne(cascade = CascadeType.ALL,optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private CustomerEntity customerEntity;
 
     // RELATION

@@ -31,7 +31,6 @@ public class CustomerServiceImpl implements ICustomerService<CustomerDto, Custom
     private final ICustomerRepository iCustomerRepository;
     private final ModelMapperBean modelMapperBean;
 
-
     //////////////////////////////////////////////////////////////////////////////////
     // MODEL MAPPER
     @Override

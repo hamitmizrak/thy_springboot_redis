@@ -14,10 +14,17 @@ public class CustomerMapper {
         customerDto.setName(customerEntity.getName());
         customerDto.setSurname(customerEntity.getSurname());
         customerDto.setCreatedDate(customerEntity.getCreatedDate());
-        // DİKKAT: COMPOSITION
-        customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
+
+        // DİKKAT: COMPOSITION (Customer(1) Adres(1))
+        if (customerEntity.getAddressEntity() != null) {
+            customerDto.setAddressDto(AddressMapper.AddressEntityToDto(customerEntity.getAddressEntity()));
+        }
+
+        // DİKKAT: COMPOSITION (Customer(1) Order(N))
+
         return customerDto;
     } //end CustomerEntityToDto
+
 
     // Dto => Entity
     public static CustomerEntity CustomerDtoToEntity(CustomerDto customerDto) {
@@ -30,8 +37,13 @@ public class CustomerMapper {
         customerEntity.setName(customerDto.getName());
         customerEntity.setSurname(customerDto.getSurname());
         customerEntity.setCreatedDate(customerDto.getCreatedDate());
-        // DİKKAT: COMPOSITON
-        customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
+
+        // DİKKAT: COMPOSITION (Customer(1) Adres(1))
+        if(customerDto.getAddressDto() != null) {
+            customerEntity.setAddressEntity(AddressMapper.AddressDtoToEntity(customerDto.getAddressDto()));
+        }
+
+        // DİKKAT: COMPOSITION (Customer(1) Order(N))
         return customerEntity;
     } // CustomerDtoToEntity
 

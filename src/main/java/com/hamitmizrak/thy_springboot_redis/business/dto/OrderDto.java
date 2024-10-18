@@ -40,10 +40,10 @@ public class OrderDto extends AuditingAwareBaseDto implements Serializable {
 
     // DATE
     @Builder.Default
-    private Date systemCreatedDate=new Date(System.currentTimeMillis());
+    private Date systemCreatedDate = new Date(System.currentTimeMillis());
 
     // COMPOSITION
-    // CUSTOMER
+    // Order(N)- Customer(1)
     private CustomerDto customerDto;
 
     // COMPOSITION

@@ -1,6 +1,5 @@
 package com.hamitmizrak.thy_springboot_redis.controller.api.impl;
 
-
 import com.hamitmizrak.thy_springboot_redis.business.dto.CustomerDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.ICustomerService;
 import com.hamitmizrak.thy_springboot_redis.controller.api.ICustomerApi;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 // LOMBOK
@@ -34,7 +32,6 @@ public class CustomerApiImpl implements ICustomerApi<CustomerDto> {
     private ApiResult apiResult;
 
     /////////////////////////////////////////////////////////////////////////////
-
     // CREATE API (Customer)
     // http://localhost:4444/api/customer/create
     @PostMapping("/create")
@@ -158,5 +155,4 @@ public class CustomerApiImpl implements ICustomerApi<CustomerDto> {
     public ResponseEntity<List<?>> customerApiAllSortedByCityDesc() {
         return ResponseEntity.ok(iCustomerService.customerServiceAllSortedByCityDesc());
     }
-
 } //end CustomerApiImpl
