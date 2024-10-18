@@ -17,4 +17,7 @@ docker container run --name spring_redis -p 6379:6379 -d redis
 # $ redis-cli DEL id   nOT: id: cache id bileşenidir.
 
 # Spring Boot projesini çalıştır.
-mvn spring-boot:run
+mvn spring-boot:run &
+
+winpty docker exec -it spring_redis bash
+redis-cli ping
