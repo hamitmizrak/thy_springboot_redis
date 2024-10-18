@@ -31,10 +31,6 @@ public class OrderDto extends AuditingAwareBaseDto implements Serializable {
     @NotEmpty(message = "{order.name.validation.constraints.NotNull.message}")
     private String name;
 
-    // NAME
-    @NotEmpty(message = "{order.price.validation.constraints.NotNull.message}")
-    private String price;
-
     @NotEmpty(message = "{order.code.validation.constraints.NotNull.message}")
     private String code;
 

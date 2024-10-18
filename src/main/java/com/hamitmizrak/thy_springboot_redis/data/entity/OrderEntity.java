@@ -29,14 +29,9 @@ public class OrderEntity extends AuditingAwareBaseEntity {
     @Column(name = "name")
     private String name;
 
-    // ORDER (PRICE)
-    @Column(name = "price")
-    private String price;
-
     // ORDER (CODE)
     @Column(name = "code")
     private String code;
-
 
     // CREATED DATE
     @Column(name = "system_created_Date")

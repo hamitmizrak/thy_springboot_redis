@@ -13,7 +13,6 @@ public class OrderMapper {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(orderEntity.getId());
         orderDto.setName(orderEntity.getName());
-        orderDto.setPrice(orderEntity.getPrice());
         orderDto.setCode(orderEntity.getCode());
         orderDto.setCreatedDate(orderEntity.getCreatedDate());
 
@@ -33,7 +32,6 @@ public class OrderMapper {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(orderDto.getId());
         orderEntity.setName(orderDto.getName());
-        orderEntity.setPrice(orderDto.getPrice());
         orderEntity.setCode(orderDto.getCode());
 
         // DİKKAT: COMPOSITION (Order(N) - Customer(1))

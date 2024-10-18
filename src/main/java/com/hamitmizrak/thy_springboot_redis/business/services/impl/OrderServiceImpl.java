@@ -81,7 +81,6 @@ public class OrderServiceImpl implements IOrderService<OrderDto, OrderEntity> {
         // Önce Nesne var mı yokmu
         OrderEntity orderEntity = dtoToEntity(orderServiceFindById(id));
         orderEntity.setName(orderDto.getName());
-        orderEntity.setPrice(orderDto.getPrice());
         orderEntity.setCode(orderDto.getCode());
         orderEntity.setCreatedDate(orderDto.getCreatedDate());
         orderEntity = iOrderRepository.save(orderEntity);
