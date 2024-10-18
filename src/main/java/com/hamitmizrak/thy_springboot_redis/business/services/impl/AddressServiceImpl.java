@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 @Log4j2
 
 // Asıl İş Yükünü yapan yer
+// Dikkat: Redis Cache kullanıldı
 @Service
 public class AddressServiceImpl implements IAddressService<AddressDto, AddressEntity> {
 
@@ -103,12 +104,14 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     }
 
     // LIST (Address)
+    // REDIS :
     @Override
     public List<AddressDto> addressServiceList() {
         return iAddressRepository.findAll().stream().map(AddressMapper::AddressEntityToDto).collect(Collectors.toList());
     }
 
     // FIND  (Address)
+    // REDIS :
     @Override
     public AddressDto addressServiceFindById(Long id) {
         return iAddressRepository.findById(id)
@@ -154,6 +157,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     // PAGINATION
     // import org.springframework.data.domain.Page;
     // import org.springframework.data.domain.Pageable;
+    // REDIS :
     @Override
     public Page<AddressEntity> addressServicePagination(int currentPage, int pageSize) {
         Pageable pageable = PageRequest.of(currentPage, pageSize);
@@ -162,6 +166,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     }
 
     // SORTING BELLI SUTUNA GORE
+    // REDIS :
     @Override
     public List<AddressEntity> addressServiceAllSortedBy(String sortedBy) {
         // NOT: JpaRepository'de findAll Sorting kullanabilirim.
@@ -175,12 +180,14 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
     addressDetails.doorNumber, addressDetails.street, paddressDetails.avenue, addressDetails.city, addressDetails.zipCode
     addressDetails.addressQrCode, addressDetails.state, addressDetails.description
      */
+    // REDIS :
     @Override
     public List<AddressEntity> addressServiceAllSortedByCityAsc() {
         return iAddressRepository.findAll(Sort.by(Sort.Direction.ASC, "addressDetails.city"));
     }
 
     // SORTING CITY DESC
+    // REDIS :
     @Override
     public List<AddressEntity> addressServiceAllSortedByCityDesc() {
         return iAddressRepository.findAll(Sort.by(Sort.Direction.DESC, "addressDetails.city"));

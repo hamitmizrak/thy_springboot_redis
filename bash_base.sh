@@ -48,7 +48,7 @@ accessPermission() {
         # Bash scriptlere izin vermek
         sudo chmod +x ./countdown.sh
         sudo chmod +x ./reboot.sh
-        sudo chmod +x ./project_other_programming.sh
+        sudo chmod +x ./bash_other_programming.sh
         sudo chmod +x ./docker_tomcat.sh
 
          # Geriye Say
@@ -441,7 +441,7 @@ other_technology() {
         sudo ./countdown.sh
 
         echo -e "######### Teknolojiler #########\n"
-        ./project_other_programming.sh
+        ./bash_other_programming.sh
 
     else
         echo -e "Teknolojiler Yüklenmeye Başlanmadı ...."
