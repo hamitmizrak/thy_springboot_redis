@@ -1,0 +1,32 @@
+# docker-compose --version
+# docker-compose up
+# docker-compose up -d
+# docker-compose -f my_docker-compose.yml up
+# docker-compose down
+# docker-compose restart
+# docker-compose ps
+
+# Services
+services:
+  backend_web:
+    container_name: blog_container
+    image: blog_image
+    restart: unless-stopped #on-failure
+    build: ./
+    ports:
+      - "5555:4444"
+    networks:
+      - spring_redis_network
+    volumes:
+      - backend_data:/backend
+
+# Networks
+networks:
+  spring_redis_network:
+    name: spring_redis_network
+    driver: bridge
+
+
+# Volumes
+volumes:
+  backend_data:
