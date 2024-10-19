@@ -204,7 +204,7 @@ theFirewallInstall() {
 }
 #theFirewallInstall
 
- Güvenlik duvarı DELETE   (UFW => Uncomplicated Firewall)
+# Güvenlik duvarı DELETE   (UFW => Uncomplicated Firewall)
 theFirewallDelete() {
     sleep 2
     echo -e "\n###### ${UFW} ######  "

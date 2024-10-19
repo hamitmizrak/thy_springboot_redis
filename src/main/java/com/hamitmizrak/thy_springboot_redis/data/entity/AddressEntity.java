@@ -1,7 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.data.entity;
 
 import com.hamitmizrak.thy_springboot_redis.audit.AuditingAwareBaseEntity;
-import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetailsEmbeddable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +27,7 @@ public class AddressEntity extends AuditingAwareBaseEntity {
 
     // Embedded
     @Embedded
-    private AddressDetails addressDetails;
+    private AddressDetailsEmbeddable addressDetails;
 
     // CREATED DATE
     @Column(name = "system_created_Date")

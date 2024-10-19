@@ -13,9 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Map;
 
 // LOMBOK
 @RequiredArgsConstructor
@@ -64,6 +62,8 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
             //produces = "application/xml",
             //headers = "X-API-VERSION=1"
     )
+
+    // LIST AddressAPI
     @Override
     public ResponseEntity<List<AddressDto>> addressApiList() {
         return ResponseEntity.ok(iAddressService.addressServiceList());

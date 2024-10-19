@@ -3,7 +3,7 @@ package com.hamitmizrak.thy_springboot_redis.business.services.impl;
 import com.hamitmizrak.thy_springboot_redis.bean.ModelMapperBean;
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
 import com.hamitmizrak.thy_springboot_redis.business.services.IAddressService;
-import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetailsEmbeddable;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 import com.hamitmizrak.thy_springboot_redis.data.repository.IAddressRepository;
 import com.hamitmizrak.thy_springboot_redis.exception._404_NotFoundException;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -132,7 +131,7 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
 
         // Bulunan Nesneyi Set
         // Embeddable eklediğim AddressDetails yapımızı üzerinden Entity set etmeliyim.
-        AddressDetails addressDetails = new AddressDetails();
+        AddressDetailsEmbeddable addressDetails = new AddressDetailsEmbeddable();
         addressDetails.setDoorNumber(addressDto.getDoorNumber());
         addressDetails.setStreet(addressDto.getStreet());
         addressDetails.setAvenue(addressDto.getAvenue());

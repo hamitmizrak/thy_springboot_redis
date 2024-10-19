@@ -3,7 +3,6 @@ package com.hamitmizrak.thy_springboot_redis.audit;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 

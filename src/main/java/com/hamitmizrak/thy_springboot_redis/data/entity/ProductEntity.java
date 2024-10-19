@@ -41,9 +41,9 @@ public class ProductEntity extends AuditingAwareBaseEntity {
     private Date systemCreatedDate;
 
     ////////////////////////////////////////////////////////////////////////////////////////////
-
     // RELATION
     // Order(N) - Product(M)
     @ManyToMany(mappedBy = "productOrderEntityList",fetch = FetchType.LAZY)
     private List<OrderEntity> orderProductEntityList;
+
 } //end AddressEntity

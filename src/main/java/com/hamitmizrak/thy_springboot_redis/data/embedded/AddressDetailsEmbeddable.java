@@ -12,7 +12,7 @@ import lombok.Setter;
 
 // Gömülü Sınıf: Entity Classlar'da karmaşıklığı azaltmak için kullanılır
 @Embeddable
-public class AddressDetails {
+public class AddressDetailsEmbeddable {
 
     // DOOR NUMBER
     @Column(name = "door_number")

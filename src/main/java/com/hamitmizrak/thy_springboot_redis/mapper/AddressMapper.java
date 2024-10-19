@@ -1,7 +1,7 @@
 package com.hamitmizrak.thy_springboot_redis.mapper;
 
 import com.hamitmizrak.thy_springboot_redis.business.dto.AddressDto;
-import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetails;
+import com.hamitmizrak.thy_springboot_redis.data.embedded.AddressDetailsEmbeddable;
 import com.hamitmizrak.thy_springboot_redis.data.entity.AddressEntity;
 
 // Entity => Dto
@@ -20,7 +20,7 @@ public class AddressMapper {
         // AddressDto Set
         if (addressEntity.getAddressDetails() != null) {
             // Embeddable : AddressDetails
-            AddressDetails addressDetails = addressEntity.getAddressDetails();
+            AddressDetailsEmbeddable addressDetails = addressEntity.getAddressDetails();
             addressDto.setDoorNumber(addressDetails.getDoorNumber());
             addressDto.setStreet(addressDetails.getStreet());
             addressDto.setAvenue(addressDetails.getAvenue());
@@ -44,7 +44,7 @@ public class AddressMapper {
         addressEntity.setCreatedDate(addressDto.getCreatedDate());
 
         // Embeddable AddressDetails Instance
-        AddressDetails addressDetails=new AddressDetails();
+        AddressDetailsEmbeddable addressDetails=new AddressDetailsEmbeddable();
         addressDetails.setDoorNumber(addressDto.getDoorNumber());
         addressDetails.setStreet(addressDto.getStreet());
         addressDetails.setAvenue(addressDto.getAvenue());

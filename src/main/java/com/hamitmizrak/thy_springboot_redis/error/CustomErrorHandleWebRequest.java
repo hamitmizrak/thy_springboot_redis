@@ -1,6 +1,5 @@
 package com.hamitmizrak.thy_springboot_redis.error;
 
-
 import com.hamitmizrak.thy_springboot_redis.utils.frontend.ReactFrontend;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
