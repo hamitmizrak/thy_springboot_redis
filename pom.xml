@@ -38,7 +38,8 @@
     -->
     <!--apache tomcat manuel için war ekliyorum-->
     <packaging>jar</packaging>
-    <!--<packaging>war</packaging>-->
+    <!--<packaging>war</packaging>
+    -->
 
     <!--properties-->
     <properties>

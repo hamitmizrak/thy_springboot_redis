@@ -142,6 +142,10 @@ public class AddressServiceImpl implements IAddressService<AddressDto, AddressEn
         addressDetails.setDescription(addressDto.getDescription());
         // NOT: Embeddable için ID ve DATE dışınd abıraktım
         addressUpdateEntity.setCreatedDate(addressDto.getCreatedDate());
+
+        // Embeddable Set
+        addressUpdateEntity.setAddressDetails(addressDetails);
+        //
         addressUpdateEntity = iAddressRepository.save(addressUpdateEntity);
         return entityToDto(addressUpdateEntity);
     }

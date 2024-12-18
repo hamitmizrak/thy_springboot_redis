@@ -44,7 +44,7 @@ public class CustomerDto extends AuditingAwareBaseDto implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     // COMPOSITION
-    // Customer(1)- Address(1)
+    // Customer(1)- Address(1) AddressID Foreign key olacak
     private AddressDto addressDto;
 
     // COMPOSITION

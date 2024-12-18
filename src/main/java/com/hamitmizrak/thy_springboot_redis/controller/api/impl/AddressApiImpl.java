@@ -57,10 +57,10 @@ public class AddressApiImpl implements IAddressApi<AddressDto> {
             name = "/addres_list_name",
             value = "/list"
             //path = "/list",
-            //params = "active=true",
-            //consumes = "application/json",
-            //produces = "application/xml",
-            //headers = "X-API-VERSION=1"
+            //params = "active=true", //isteğinde belirli bir query parametresinin bulunmasını zorunlu kılar. api/address/list?active=true
+            //consumes = "application/json", //sadece bu formatta gelen verileri kabul eder. Örnek: application/json,application/xml,application/x-www-form-urlencoded
+            //produces = "application/xml", //API'nin döneceği formatı tanımlar.
+            //headers = "X-API-VERSION=1" //İstek başlığında (header) belirli bir bilginin bulunmasını zorunlu kılar.
     )
 
     // LIST AddressAPI
